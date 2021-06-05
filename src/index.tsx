@@ -12,7 +12,8 @@ interface RainSettings {
 }
 
 export const ExampleComponent: React.FC<RainSettings> = ({
-  emojis
+  emojis,
+  speed = 10
 }: RainSettings) => {
   const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
@@ -42,8 +43,9 @@ export const ExampleComponent: React.FC<RainSettings> = ({
     );
   }, [emojis]);
 
-  // TODO: switch to timeline and use iteration instead of repeat
-  // TODO: bring the window listener useEffect here from EmojiContainer
+  // // TODO: switch to timeline and use iteration instead of repeat
+  // // TODO: bring the window listener useEffect here from EmojiContainer
+  // TODO: for window resize: https://codepen.io/GreenSock/pen/jrmgrW?editors=1010 and https://greensock.com/forums/topic/15149-stop-repeated-tween-at-the-end-of-an-iteration/
   // TODO: add rotation to useFallingAnimation
   // TODO: remove hardcoded part from the map's fragment
 
@@ -59,18 +61,21 @@ export const ExampleComponent: React.FC<RainSettings> = ({
             <EmojiContainer
               id={`${id}-0`}
               emoji={emoji}
+              speed={speed}
               windowHeight={windowHeight}
               windowWidth={windowWidth}
             />
             <EmojiContainer
               id={`${id}-1`}
               emoji={emoji}
+              speed={speed}
               windowHeight={windowHeight}
               windowWidth={windowWidth}
             />
             <EmojiContainer
               id={`${id}-2`}
               emoji={emoji}
+              speed={speed}
               windowHeight={windowHeight}
               windowWidth={windowWidth}
             />
