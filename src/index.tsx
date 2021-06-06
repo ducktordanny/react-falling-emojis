@@ -8,12 +8,16 @@ interface RainSettings {
   quantity?: number;
   speed?: number; // in seconds
   timingType?: string;
+  disable?: boolean;
+  // reverse?:  boolean; // emojis are flying up
   // size?: number; // pixels maybe
+  // density?: number; // X maximum and if it's incorrect throw warning and use valid value
 }
-
+// https://greensock.com/forums/topic/14775-creating-a-particle-animation/
 export const ExampleComponent: React.FC<RainSettings> = ({
   emojis,
-  speed = 10
+  speed = 10,
+  disable = false
 }: RainSettings) => {
   const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
@@ -43,45 +47,31 @@ export const ExampleComponent: React.FC<RainSettings> = ({
     );
   }, [emojis]);
 
-  // // TODO: switch to timeline and use iteration instead of repeat
-  // // TODO: bring the window listener useEffect here from EmojiContainer
   // TODO: for window resize: https://codepen.io/GreenSock/pen/jrmgrW?editors=1010 and https://greensock.com/forums/topic/15149-stop-repeated-tween-at-the-end-of-an-iteration/
   // TODO: add rotation to useFallingAnimation
-  // TODO: remove hardcoded part from the map's fragment
+  // TODO: We should find a better way to return more emoji if the density is not default
 
   return (
     <section
       className={styles['react-falling-emojis-container']}
       ref={containerRef}
     >
-      {emojis.map((emoji, index) => {
-        const id = `react-falling-emoji-${index}`;
-        return (
-          <React.Fragment key={id}>
-            <EmojiContainer
-              id={`${id}-0`}
-              emoji={emoji}
-              speed={speed}
-              windowHeight={windowHeight}
-              windowWidth={windowWidth}
-            />
-            <EmojiContainer
-              id={`${id}-1`}
-              emoji={emoji}
-              speed={speed}
-              windowHeight={windowHeight}
-              windowWidth={windowWidth}
-            />
-            <EmojiContainer
-              id={`${id}-2`}
-              emoji={emoji}
-              speed={speed}
-              windowHeight={windowHeight}
-              windowWidth={windowWidth}
-            />
-          </React.Fragment>
-        );
-      })}
+      {disable
+        ? ''
+        : emojis.map((emoji, index) => {
+            const id = `react-falling-emoji-${index}`;
+            return (
+              <React.Fragment key={id}>
+                <EmojiContainer
+                  id={`${id}-0`}
+                  emoji={emoji}
+                  speed={speed}
+                  windowHeight={windowHeight}
+                  windowWidth={windowWidth}
+                />
+              </React.Fragment>
+            );
+          })}
     </section>
   );
 };

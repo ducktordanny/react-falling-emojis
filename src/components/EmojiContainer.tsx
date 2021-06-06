@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 // import useFallingAnimation from '../hooks/useFallingAnimation';
 import gsap from 'gsap';
 import styles from '../styles.module.css';
@@ -9,6 +9,7 @@ interface Props {
   speed: number;
   windowHeight: number;
   windowWidth: number;
+  // disable: boolean;
 }
 
 const EmojiContainer: React.FC<Props> = ({
@@ -18,83 +19,45 @@ const EmojiContainer: React.FC<Props> = ({
   windowHeight,
   windowWidth
 }: Props) => {
-  const [animationTimeline, setAnimationTimeline] = useState(
-    gsap.timeline({
-      repeatRefresh: true
-    })
-  );
   const windowWidthRef = useRef<number>(window.innerWidth);
   const windowHeightRef = useRef<number>(window.innerHeight);
+  const animationTimeline = useMemo(
+    () =>
+      gsap.timeline({
+        repeat: -1,
+        repeatRefresh: true
+      }),
+    []
+  );
 
   useEffect(() => {
-    // const from = {
-    //   y: -100,
-    //   x: `random(-50, ${windowWidth} + 50)`
-    // };
-    // const to = {
-    //   y: windowHeight + 100,
-    //   x: `random(-50, ${windowWidth} + 50)`,
-    //   duration: speed,
-    //   delay: `random(0, ${speed})`,
-    //   rotation: 0,
-    //   repeatRefresh: true
-    // };
     animationTimeline.fromTo(
       `#${id}`,
       {
         y: -100,
-        x: gsap.utils.random(-50, windowWidthRef.current + 50)
+        x: gsap.utils.random(-50, windowWidthRef.current + 50, true),
+        repeatRefresh: true
       },
       {
         y: windowHeightRef.current + 100,
-        x: `random(-50, ${windowWidthRef.current + 50})`,
+        x: gsap.utils.random(-50, windowWidthRef.current + 50, true),
+        delay: gsap.utils.random(0, speed, true),
         duration: speed,
-        delay: `random(0, ${speed})`,
-        repeat: -1,
-        ease: 'none',
+        ease: 'linear',
         repeatRefresh: true
-        // immediateRender: false
       }
     );
 
     return () => {
+      console.log('Clear timeline...');
       animationTimeline.clear();
     };
-  }, [animationTimeline, gsap, speed]);
+  }, [windowHeight, windowWidth]);
 
   useEffect(() => {
     windowHeightRef.current = windowHeight;
     windowWidthRef.current = windowWidth;
   }, [windowHeight, windowWidth]);
-
-  useEffect(() => {
-    window.addEventListener('keyup', (e) => {
-      if (e.code === 'Space') {
-        animationTimeline.pause();
-      } else if (e.code === 'Enter') {
-        animationTimeline.play();
-      }
-    });
-
-    return () => {
-      window.removeEventListener('keyup', () => {
-        console.log('removed');
-      });
-    };
-  }, [animationTimeline]);
-
-  useEffect(() => {
-    setAnimationTimeline(
-      gsap.timeline({
-        delay: gsap.utils.random(0, speed)
-      })
-    );
-  }, [speed]);
-
-  // useEffect(() => {
-  //   console.log('It should restart this shit');
-  //   animationTimeline.restart(true, false);
-  // }, [windowHeight, windowWidth, animationTimeline]);
 
   return (
     <div id={id} className={styles['emoji-container']}>
