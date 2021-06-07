@@ -41,11 +41,10 @@ export const ExampleComponent: React.FC<RainSettings> = ({
     };
   }, []);
 
+  // TODO: window resize is still a problem
   // TODO: (recursive? https://stackoverflow.com/questions/56025440/gsap-staggerto-random-arguments-for-each-element) for window resize: https://codepen.io/GreenSock/pen/jrmgrW?editors=1010 and https://greensock.com/forums/topic/15149-stop-repeated-tween-at-the-end-of-an-iteration/
-  // TODO: add rotation to useFallingAnimation
-  // TODO: We should find a better way to return more emoji if the density is not default
-
-  // * when disabling we could use another animation (fade out) and then pause
+  // TODO: rotations could be different at timing
+  // TODO: reversed falling - flying
 
   // hadnling density
   const getEmojiElements = () => {

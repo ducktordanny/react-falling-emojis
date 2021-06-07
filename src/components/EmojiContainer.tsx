@@ -25,7 +25,15 @@ const EmojiContainer: React.FC<Props> = ({
   const windowHeightRef = useRef<number>(window.innerHeight);
   // const disableRef = useRef<boolean>(disable);
   const speedRef = useRef<number>(speed);
-  const timeline = useMemo(
+  const mainTimeline = useMemo(
+    () =>
+      gsap.timeline({
+        repeat: -1,
+        repeatRefresh: true
+      }),
+    []
+  );
+  const shakeTimeline = useMemo(
     () =>
       gsap.timeline({
         repeat: -1,
@@ -35,7 +43,7 @@ const EmojiContainer: React.FC<Props> = ({
   );
 
   useEffect(() => {
-    timeline
+    mainTimeline
       .fromTo(
         `#${id}`,
         {
@@ -56,7 +64,7 @@ const EmojiContainer: React.FC<Props> = ({
 
     return () => {
       console.log('Clean-up');
-      timeline.clear();
+      mainTimeline.clear();
     };
   }, []);
 
@@ -69,23 +77,23 @@ const EmojiContainer: React.FC<Props> = ({
           duration: 1
         })
         .then(() => {
-          timeline.pause();
+          mainTimeline.pause();
         });
     } else {
       // ? here we could choose if we want to continue from the end of the previous or restart it
-      // timeline.resume();
+      // mainTimeline.resume();
       gsap.to(`.${styles['emoji-container']}`, {
         opacity: 1,
         duration: 1
       });
-      timeline.restart();
+      mainTimeline.restart();
     }
-  }, [disable, timeline]);
+  }, [disable, mainTimeline]);
 
   useEffect(() => {
-    // ? should we also use timeline here?
     if (shake) {
-      gsap.fromTo(
+      shakeTimeline.clear();
+      shakeTimeline.fromTo(
         `#${id}`,
         {
           rotation: -30
@@ -99,8 +107,8 @@ const EmojiContainer: React.FC<Props> = ({
         }
       );
     } else {
-      // ! this isn't disable the rotation
-      gsap.fromTo(`#${id}`, { rotation: 0 }, { rotation: 0 });
+      shakeTimeline.clear();
+      shakeTimeline.set(`#${id}`, { rotation: 0 });
     }
   }, [shake]);
 
