@@ -20,17 +20,5 @@
   position: absolute;
   font-size: 30px;
   user-select: none;
-  /* animation: shake 2s infinite; */
-}
-
-@keyframes shake {
-  0% {
-    transform: rotate(30deg);
-  }
-  50% {
-    transform: rotate(-30deg);
-  }
-  100% {
-    transform: rotate(30deg);
-  }
+  opacity: 1;
 }

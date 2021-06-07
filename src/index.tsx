@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import EmojiContainer from './components/EmojiContainer';
-// import { v4 as uuid } from 'uuid';
 import styles from './styles.module.css';
 
 interface RainSettings {
@@ -9,15 +8,18 @@ interface RainSettings {
   speed?: number; // in seconds
   timingType?: string;
   disable?: boolean;
+  shake?: boolean;
+  density?: number; // X maximum and if it's incorrect throw warning and use valid value
   // reverse?:  boolean; // emojis are flying up
   // size?: number; // pixels maybe
-  // density?: number; // X maximum and if it's incorrect throw warning and use valid value
 }
-// https://greensock.com/forums/topic/14775-creating-a-particle-animation/
+
 export const ExampleComponent: React.FC<RainSettings> = ({
   emojis,
   speed = 10,
-  disable = false
+  disable = false,
+  density = 1,
+  shake = false
 }: RainSettings) => {
   const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
@@ -39,39 +41,53 @@ export const ExampleComponent: React.FC<RainSettings> = ({
     };
   }, []);
 
-  useEffect(() => {
-    // const emojiCheckerRegex: RegExp =
-    //   /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gu;
-    console.log(
-      'Checking the emojis if those are valid... Or actually should we?'
-    );
-  }, [emojis]);
-
-  // TODO: for window resize: https://codepen.io/GreenSock/pen/jrmgrW?editors=1010 and https://greensock.com/forums/topic/15149-stop-repeated-tween-at-the-end-of-an-iteration/
+  // TODO: (recursive? https://stackoverflow.com/questions/56025440/gsap-staggerto-random-arguments-for-each-element) for window resize: https://codepen.io/GreenSock/pen/jrmgrW?editors=1010 and https://greensock.com/forums/topic/15149-stop-repeated-tween-at-the-end-of-an-iteration/
   // TODO: add rotation to useFallingAnimation
   // TODO: We should find a better way to return more emoji if the density is not default
+
+  // * when disabling we could use another animation (fade out) and then pause
+
+  // hadnling density
+  const getEmojiElements = () => {
+    if (density < 1) {
+      console.error(
+        '[React Falling Emojis]: Density cannot be smaller than 1!'
+      );
+      return undefined;
+    }
+    if (density > 5 && emojis.length > 5) {
+      console.warn(
+        '[React Falling Emojis]: Too many elements could cause performance issues!'
+      );
+    }
+    return emojis.map((emoji, index) => {
+      const id = `react-falling-emoji-${index}`;
+      const emojiContainerElement = (idNumber: number) => (
+        <EmojiContainer
+          key={`${id}-${idNumber}`}
+          id={`${id}-${idNumber}`}
+          emoji={emoji}
+          speed={speed}
+          windowHeight={windowHeight}
+          windowWidth={windowWidth}
+          disable={disable}
+          shake={shake}
+        />
+      );
+      const emojiElements: JSX.Element[] = [];
+      for (let index = 0; index < density; index++) {
+        emojiElements.push(emojiContainerElement(index));
+      }
+      return <React.Fragment key={id}>{...emojiElements}</React.Fragment>;
+    });
+  };
 
   return (
     <section
       className={styles['react-falling-emojis-container']}
       ref={containerRef}
     >
-      {disable
-        ? ''
-        : emojis.map((emoji, index) => {
-            const id = `react-falling-emoji-${index}`;
-            return (
-              <React.Fragment key={id}>
-                <EmojiContainer
-                  id={`${id}-0`}
-                  emoji={emoji}
-                  speed={speed}
-                  windowHeight={windowHeight}
-                  windowWidth={windowWidth}
-                />
-              </React.Fragment>
-            );
-          })}
+      {getEmojiElements()}
     </section>
   );
 };

@@ -5,13 +5,16 @@ import 'react-falling-emojis/dist/index.css';
 
 const App = () => {
   const [fallingEmojiSwitch, setFallingEmojiSwitch] = useState<boolean>(false);
+  const [shakeControl, setShakeControl] = useState<boolean>(false);
 
   useEffect(() => {
     window.addEventListener('keyup', (e) => {
       if (e.code === 'Space') {
-        setFallingEmojiSwitch(true);
-      } else if (e.code === 'Enter') {
         setFallingEmojiSwitch(false);
+        setShakeControl(true);
+      } else if (e.code === 'Enter') {
+        // setFallingEmojiSwitch(false);
+        setShakeControl(false);
       }
     });
 
@@ -31,6 +34,7 @@ const App = () => {
       emojis={['🐶', '😂', '🤔', '🎉', '🦆', '🐶']}
       speed={5}
       disable={fallingEmojiSwitch}
+      shake={shakeControl}
     />
   );
 };
