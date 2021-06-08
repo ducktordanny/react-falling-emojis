@@ -1,25 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
 import EmojiContainer from './components/EmojiContainer';
+import gsap from 'gsap';
 import styles from './styles.module.css';
+import 'react-falling-emojis/dist/index.css';
 
 interface RainSettings {
   emojis: string[];
-  quantity?: number;
-  speed?: number; // in seconds
   timingType?: string;
+  speed?: number; // in seconds
+  density?: number; // an element how many times should occur (we need to handle invalid values)
   disable?: boolean;
   shake?: boolean;
-  density?: number; // X maximum and if it's incorrect throw warning and use valid value
+  resumeRestart?: boolean;
+  size?: number; // in pixels
   // reverse?:  boolean; // emojis are flying up
-  // size?: number; // pixels maybe
 }
 
-export const ExampleComponent: React.FC<RainSettings> = ({
+const FallingEmojis: React.FC<RainSettings> = ({
   emojis,
   speed = 10,
   disable = false,
   density = 1,
-  shake = false
+  shake = false,
+  resumeRestart = true,
+  size = 30
 }: RainSettings) => {
   const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
@@ -41,10 +45,17 @@ export const ExampleComponent: React.FC<RainSettings> = ({
     };
   }, []);
 
-  // TODO: window resize is still a problem
-  // TODO: (recursive? https://stackoverflow.com/questions/56025440/gsap-staggerto-random-arguments-for-each-element) for window resize: https://codepen.io/GreenSock/pen/jrmgrW?editors=1010 and https://greensock.com/forums/topic/15149-stop-repeated-tween-at-the-end-of-an-iteration/
+  useEffect(() => {
+    gsap.set(`.${styles['emoji-container']}`, {
+      top: `-${size}px`,
+      fontSize: `${size}px`
+    });
+  }, [size]);
+
   // TODO: rotations could be different at timing
   // TODO: reversed falling - flying
+  // // TODO: window resize is still a problem
+  // // TODO: (recursive? https://stackoverflow.com/questions/56025440/gsap-staggerto-random-arguments-for-each-element) for window resize: https://codepen.io/GreenSock/pen/jrmgrW?editors=1010 and https://greensock.com/forums/topic/15149-stop-repeated-tween-at-the-end-of-an-iteration/
 
   // hadnling density
   const getEmojiElements = () => {
@@ -71,6 +82,8 @@ export const ExampleComponent: React.FC<RainSettings> = ({
           windowWidth={windowWidth}
           disable={disable}
           shake={shake}
+          resumeRestart={resumeRestart}
+          size={size}
         />
       );
       const emojiElements: JSX.Element[] = [];
@@ -90,3 +103,5 @@ export const ExampleComponent: React.FC<RainSettings> = ({
     </section>
   );
 };
+
+export default FallingEmojis;

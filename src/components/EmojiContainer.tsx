@@ -3,13 +3,15 @@ import gsap from 'gsap';
 import styles from '../styles.module.css';
 
 interface Props {
-  id: string; // this is gonna be a generated unique uuid
+  id: string;
   emoji: string;
   speed: number;
   windowHeight: number;
   windowWidth: number;
   disable: boolean;
   shake: boolean;
+  resumeRestart: boolean;
+  size: number;
 }
 
 const EmojiContainer: React.FC<Props> = ({
@@ -19,12 +21,15 @@ const EmojiContainer: React.FC<Props> = ({
   windowHeight,
   windowWidth,
   disable,
-  shake
+  shake,
+  resumeRestart,
+  size
 }: Props) => {
   const windowWidthRef = useRef<number>(window.innerWidth);
   const windowHeightRef = useRef<number>(window.innerHeight);
-  // const disableRef = useRef<boolean>(disable);
   const speedRef = useRef<number>(speed);
+  const sizeRef = useRef<number>(size);
+  // the main timline handle the falling animation
   const mainTimeline = useMemo(
     () =>
       gsap.timeline({
@@ -47,12 +52,12 @@ const EmojiContainer: React.FC<Props> = ({
       .fromTo(
         `#${id}`,
         {
-          y: -100,
+          y: -sizeRef.current,
           x: gsap.utils.random(-50, windowWidthRef.current + 50, true),
           repeatRefresh: true
         },
         {
-          y: windowHeightRef.current + 100,
+          y: windowHeightRef.current + sizeRef.current,
           x: gsap.utils.random(-50, windowWidthRef.current + 50, true),
           delay: gsap.utils.random(0, speed, true),
           duration: speedRef.current,
@@ -63,7 +68,7 @@ const EmojiContainer: React.FC<Props> = ({
       .play();
 
     return () => {
-      console.log('Clean-up');
+      // clean-up
       mainTimeline.clear();
     };
   }, []);
@@ -80,30 +85,36 @@ const EmojiContainer: React.FC<Props> = ({
           mainTimeline.pause();
         });
     } else {
-      // ? here we could choose if we want to continue from the end of the previous or restart it
-      // mainTimeline.resume();
+      // if resumeRestart is on then the animation is resuming from the paused position
+      if (resumeRestart) {
+        mainTimeline.resume();
+      } else {
+        mainTimeline.restart();
+      }
       gsap.to(`.${styles['emoji-container']}`, {
         opacity: 1,
         duration: 1
       });
-      mainTimeline.restart();
     }
-  }, [disable, mainTimeline]);
+  }, [disable, mainTimeline, resumeRestart]);
 
+  // if shake is enabled then it start from a random array of angle values
   useEffect(() => {
     if (shake) {
       shakeTimeline.clear();
+      const shakingStartFrom = gsap.utils.random([30, -30, 20, -20]);
       shakeTimeline.fromTo(
         `#${id}`,
         {
-          rotation: -30
+          rotation: shakingStartFrom
         },
         {
-          rotation: 30,
+          rotation: -shakingStartFrom,
           yoyo: true,
           ease: 'none',
-          duration: 1.5,
-          repeat: -1
+          duration: gsap.utils.random([1, 1.5, 2], true),
+          repeat: -1,
+          repeatRefresh: true
         }
       );
     } else {
@@ -112,14 +123,26 @@ const EmojiContainer: React.FC<Props> = ({
     }
   }, [shake]);
 
+  // update reference on change
   useEffect(() => {
     speedRef.current = speed;
+    mainTimeline.restart();
   }, [speed]);
 
+  // on window size change we restart the animation
+  // ! we should find out another way to make this more fancy
+  // ! (if we simply update the window size references then it's not gonna update inside the animation)
   useEffect(() => {
     windowHeightRef.current = windowHeight;
     windowWidthRef.current = windowWidth;
+    mainTimeline.restart();
   }, [windowHeight, windowWidth]);
+
+  // (size and positions wouldn't update without restart)
+  useEffect(() => {
+    sizeRef.current = size;
+    mainTimeline.restart();
+  }, [size]);
 
   return (
     <div id={id} className={styles['emoji-container']}>

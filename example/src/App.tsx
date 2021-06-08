@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
-import { ExampleComponent } from 'react-falling-emojis';
-import 'react-falling-emojis/dist/index.css';
+import FallingEmojis from 'react-falling-emojis';
 
 const App = () => {
   const [fallingEmojiSwitch, setFallingEmojiSwitch] = useState<boolean>(false);
@@ -27,12 +25,13 @@ const App = () => {
   }, [fallingEmojiSwitch]);
 
   return (
-    <ExampleComponent
-      emojis={['@ducktor.danny', '🦆']}
+    <FallingEmojis
+      emojis={['⚽️', '🦆', '🎉', '👻']}
       speed={10}
       density={10}
+      shake={true}
+      size={50}
       disable={fallingEmojiSwitch}
-      shake={false}
     />
   );
 };
