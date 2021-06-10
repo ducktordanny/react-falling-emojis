@@ -60,7 +60,7 @@ const App = () => (
 export default App;
 ```
 
-If you notice any problems or you have any tips what could be included check out the github repo of react-falling-animation.
+If you notice any problems or you have any tips what could be included check out the github repo of react-falling-animation. (https://github.com/ducktorD/react-falling-emojis)
 
 ## License
 

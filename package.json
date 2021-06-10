@@ -4,7 +4,7 @@
   "description": "Choose your emojis and make a rain with them.",
   "author": "DucktorDanny",
   "license": "MIT",
-  "repository": "DucktorDanny/react-falling-emojis",
+  "repository": "ducktorD/react-falling-emojis",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
@@ -62,7 +62,6 @@
     "dist"
   ],
   "dependencies": {
-    "gsap": "^3.6.1",
-    "uuid": "^8.3.2"
+    "gsap": "^3.6.1"
   }
 }

@@ -2,3 +2,5 @@
 /dist
 /example/node_modules
 /example/build
+.DS_Store
+

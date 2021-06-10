@@ -13,7 +13,7 @@ interface RainSettings {
   shake?: boolean;
   resumeRestart?: boolean;
   size?: number; // in pixels
-  // reverse?:  boolean; // emojis are flying up
+  // reverse?:  boolean; // emojis would come from bottom to top
 }
 
 const FallingEmojis: React.FC<RainSettings> = ({
@@ -57,6 +57,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
   // // TODO: window resize is still a problem
   // // TODO: (recursive? https://stackoverflow.com/questions/56025440/gsap-staggerto-random-arguments-for-each-element) for window resize: https://codepen.io/GreenSock/pen/jrmgrW?editors=1010 and https://greensock.com/forums/topic/15149-stop-repeated-tween-at-the-end-of-an-iteration/
 
+  // test ...
   // hadnling density
   const getEmojiElements = () => {
     if (density < 1) {
