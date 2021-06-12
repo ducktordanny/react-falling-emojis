@@ -10,7 +10,6 @@ interface Props {
   windowWidth: number;
   disable: boolean;
   shake: boolean;
-  resumeRestart: boolean;
   size: number;
 }
 
@@ -22,7 +21,6 @@ const EmojiContainer: React.FC<Props> = ({
   windowWidth,
   disable,
   shake,
-  resumeRestart,
   size
 }: Props) => {
   const windowWidthRef = useRef<number>(window.innerWidth);
@@ -73,36 +71,50 @@ const EmojiContainer: React.FC<Props> = ({
     };
   }, []);
 
+  // const disableTimeline = useMemo(() => gsap.timeline(), []);
+
+  // disable falling animation with opacity changing end pause
   useEffect(() => {
-    // disable falling animation with opacity changing end pause
     if (disable) {
       gsap
         .to(`.${styles['emoji-container']}`, {
           opacity: 0,
-          duration: 1
+          ease: 'none',
+          paused: true,
+          duration: 2
         })
-        .then(() => {
-          mainTimeline.pause();
-        });
+        .play();
     } else {
       // if resumeRestart is on then the animation is resuming from the paused position
-      if (resumeRestart) {
-        mainTimeline.resume();
-      } else {
+      if (mainTimeline.paused()) {
         mainTimeline.restart();
       }
-      gsap.to(`.${styles['emoji-container']}`, {
-        opacity: 1,
-        duration: 1
-      });
+      gsap
+        .to(`.${styles['emoji-container']}`, {
+          opacity: 1,
+          ease: 'none',
+          paused: true,
+          duration: 2,
+          onUpdate: () => {
+            if (mainTimeline.paused()) {
+              mainTimeline.resume();
+            }
+          }
+        })
+        .play()
+        .then(() => {
+          mainTimeline.resume();
+        });
     }
-  }, [disable, mainTimeline, resumeRestart]);
+  }, [disable]);
 
   // if shake is enabled then it start from a random array of angle values
   useEffect(() => {
     if (shake) {
       shakeTimeline.clear();
-      const shakingStartFrom = gsap.utils.random([30, -30, 20, -20]);
+      const shakingStartFrom = gsap.utils.random([
+        30, -30, 20, -20, 10, -10, 40, -40
+      ]);
       shakeTimeline.fromTo(
         `#${id}`,
         {

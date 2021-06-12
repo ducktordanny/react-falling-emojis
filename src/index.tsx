@@ -11,7 +11,6 @@ interface RainSettings {
   density?: number; // an element how many times should occur (we need to handle invalid values)
   disable?: boolean;
   shake?: boolean;
-  resumeRestart?: boolean;
   size?: number; // in pixels
   // reverse?:  boolean; // emojis would come from bottom to top
 }
@@ -22,7 +21,6 @@ const FallingEmojis: React.FC<RainSettings> = ({
   disable = false,
   density = 1,
   shake = false,
-  resumeRestart = true,
   size = 30
 }: RainSettings) => {
   const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
@@ -54,6 +52,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
 
   // TODO: rotations could be different at timing
   // TODO: reversed falling - flying
+  // TODO: clean-up
   // // TODO: window resize is still a problem
   // // TODO: (recursive? https://stackoverflow.com/questions/56025440/gsap-staggerto-random-arguments-for-each-element) for window resize: https://codepen.io/GreenSock/pen/jrmgrW?editors=1010 and https://greensock.com/forums/topic/15149-stop-repeated-tween-at-the-end-of-an-iteration/
 
@@ -82,7 +81,6 @@ const FallingEmojis: React.FC<RainSettings> = ({
           windowWidth={windowWidth}
           disable={disable}
           shake={shake}
-          resumeRestart={resumeRestart}
           size={size}
         />
       );

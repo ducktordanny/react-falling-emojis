@@ -1,4 +1,4 @@
-import gsap from 'gsap';
+// import gsap from 'gsap';
 
 interface AnimationProps {
   id: string;
@@ -13,34 +13,8 @@ const useFallingAnimation = ({
   windowHeight,
   windowWidth
 }: AnimationProps) => {
-  // gsap.fromTo(
-  //   `#${id}`,
-  //   { y: -100, x: gsap.utils.random(-50, windowWidth + 50) },
-  //   {
-  //     y: windowHeight + 100,
-  //     x: gsap.utils.random(-50, windowWidth + 50),
-  //     duration: speed,
-  //     delay: gsap.utils.random(0, speed),
-  //     repeat: -1
-  //   }
-  // );
-  const animationTimeline = gsap.timeline({
-    delay: gsap.utils.random(0, speed)
-  });
-  animationTimeline.fromTo(
-    `#${id}`,
-    {
-      y: -100,
-      x: gsap.utils.random(-50, windowWidth + 50)
-    },
-    {
-      y: windowHeight + 100,
-      x: gsap.utils.random(-50, windowWidth + 50),
-      duration: speed,
-      repeat: -1,
-      ease: 'none'
-    }
-  );
+  console.log(id, speed, windowHeight, windowWidth);
+  return null;
 };
 
 export default useFallingAnimation;
