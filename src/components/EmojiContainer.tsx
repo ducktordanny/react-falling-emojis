@@ -83,7 +83,10 @@ const EmojiContainer: React.FC<Props> = ({
           paused: true,
           duration: 2
         })
-        .play();
+        .play()
+        .then(() => {
+          mainTimeline.pause();
+        });
     } else {
       // if resumeRestart is on then the animation is resuming from the paused position
       if (mainTimeline.paused()) {
@@ -101,10 +104,7 @@ const EmojiContainer: React.FC<Props> = ({
             }
           }
         })
-        .play()
-        .then(() => {
-          mainTimeline.resume();
-        });
+        .play();
     }
   }, [disable]);
 
