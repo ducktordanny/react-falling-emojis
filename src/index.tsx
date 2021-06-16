@@ -12,7 +12,7 @@ interface RainSettings {
   disable?: boolean;
   shake?: boolean;
   size?: number; // in pixels
-  // reverse?:  boolean; // emojis would come from bottom to top
+  reverse?: boolean; // emojis would come from bottom to top
 }
 
 const FallingEmojis: React.FC<RainSettings> = ({
@@ -21,7 +21,8 @@ const FallingEmojis: React.FC<RainSettings> = ({
   disable = false,
   density = 1,
   shake = false,
-  size = 30
+  size = 30,
+  reverse = false
 }: RainSettings) => {
   const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
@@ -82,6 +83,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
           disable={disable}
           shake={shake}
           size={size}
+          reverse={reverse}
         />
       );
       const emojiElements: JSX.Element[] = [];

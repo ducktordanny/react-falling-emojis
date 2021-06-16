@@ -31,7 +31,8 @@ const App = () => {
       density={10}
       shake={true}
       size={50}
-      disable={fallingEmojiSwitch}
+      disable={false}
+      reverse={fallingEmojiSwitch}
     />
   );
 };

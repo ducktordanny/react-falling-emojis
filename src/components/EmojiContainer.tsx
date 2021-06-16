@@ -5,12 +5,13 @@ import styles from '../styles.module.css';
 interface Props {
   id: string;
   emoji: string;
+  size: number;
   speed: number;
   windowHeight: number;
   windowWidth: number;
   disable: boolean;
   shake: boolean;
-  size: number;
+  reverse: boolean;
 }
 
 const EmojiContainer: React.FC<Props> = ({
@@ -21,7 +22,8 @@ const EmojiContainer: React.FC<Props> = ({
   windowWidth,
   disable,
   shake,
-  size
+  size,
+  reverse
 }: Props) => {
   const windowWidthRef = useRef<number>(window.innerWidth);
   const windowHeightRef = useRef<number>(window.innerHeight);
@@ -46,21 +48,26 @@ const EmojiContainer: React.FC<Props> = ({
   );
 
   useEffect(() => {
+    const animateFrom = {
+      y: -sizeRef.current,
+      x: gsap.utils.random(-50, windowWidthRef.current + 50, true),
+      repeatRefresh: true
+    };
+    const animateTo = {
+      y: windowHeightRef.current + sizeRef.current,
+      x: gsap.utils.random(-50, windowWidthRef.current + 50, true),
+      repeatRefresh: true
+    };
+
     mainTimeline
       .fromTo(
         `#${id}`,
+        { ...(reverse ? animateTo : animateFrom) },
         {
-          y: -sizeRef.current,
-          x: gsap.utils.random(-50, windowWidthRef.current + 50, true),
-          repeatRefresh: true
-        },
-        {
-          y: windowHeightRef.current + sizeRef.current,
-          x: gsap.utils.random(-50, windowWidthRef.current + 50, true),
+          ...(reverse ? animateFrom : animateTo),
           delay: gsap.utils.random(0, speed, true),
           duration: speedRef.current,
-          ease: 'linear',
-          repeatRefresh: true
+          ease: 'linear'
         }
       )
       .play();
@@ -69,9 +76,7 @@ const EmojiContainer: React.FC<Props> = ({
       // clean-up
       mainTimeline.clear();
     };
-  }, []);
-
-  // const disableTimeline = useMemo(() => gsap.timeline(), []);
+  }, [reverse]);
 
   // disable falling animation with opacity changing end pause
   useEffect(() => {
@@ -88,7 +93,6 @@ const EmojiContainer: React.FC<Props> = ({
           mainTimeline.pause();
         });
     } else {
-      // if resumeRestart is on then the animation is resuming from the paused position
       if (mainTimeline.paused()) {
         mainTimeline.restart();
       }
