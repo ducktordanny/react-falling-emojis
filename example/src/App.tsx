@@ -21,7 +21,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    console.log(fallingEmojiSwitch ? 'Stop' : 'Start');
+    console.log(fallingEmojiSwitch);
   }, [fallingEmojiSwitch]);
 
   return (
@@ -29,10 +29,8 @@ const App = () => {
       emojis={['⚽️', '🦆', '🎉', '👻']}
       speed={10}
       density={10}
-      shake={true}
+      shake={fallingEmojiSwitch}
       size={50}
-      disable={false}
-      reverse={fallingEmojiSwitch}
     />
   );
 };

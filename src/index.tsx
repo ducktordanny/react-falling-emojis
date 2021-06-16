@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import EmojiContainer from './components/EmojiContainer';
 import gsap from 'gsap';
 import styles from './styles.module.css';
@@ -24,26 +24,6 @@ const FallingEmojis: React.FC<RainSettings> = ({
   size = 30,
   reverse = false
 }: RainSettings) => {
-  const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
-  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
-  const containerRef = useRef<any>();
-
-  useEffect(() => {
-    if (containerRef.current) console.log(containerRef.current.offsetWidth);
-    window.addEventListener('resize', (e: UIEvent) => {
-      const w = e.target as typeof window;
-      console.log(`Shiet it's happening...`);
-      setWindowHeight(w.innerHeight);
-      setWindowWidth(w.innerWidth);
-    });
-
-    return () => {
-      window.removeEventListener('resize', (e) => {
-        console.log('Clear...: ' + e);
-      });
-    };
-  }, []);
-
   useEffect(() => {
     gsap.set(`.${styles['emoji-container']}`, {
       top: `-${size}px`,
@@ -51,11 +31,8 @@ const FallingEmojis: React.FC<RainSettings> = ({
     });
   }, [size]);
 
-  // TODO: rotations could be different at timing
-  // TODO: reversed falling - flying
   // TODO: clean-up
-  // // TODO: window resize is still a problem
-  // // TODO: (recursive? https://stackoverflow.com/questions/56025440/gsap-staggerto-random-arguments-for-each-element) for window resize: https://codepen.io/GreenSock/pen/jrmgrW?editors=1010 and https://greensock.com/forums/topic/15149-stop-repeated-tween-at-the-end-of-an-iteration/
+  // TODO: window resize is still a problem
 
   // hadnling density
   const getEmojiElements = () => {
@@ -78,8 +55,6 @@ const FallingEmojis: React.FC<RainSettings> = ({
           id={`${id}-${idNumber}`}
           emoji={emoji}
           speed={speed}
-          windowHeight={windowHeight}
-          windowWidth={windowWidth}
           disable={disable}
           shake={shake}
           size={size}
@@ -95,10 +70,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
   };
 
   return (
-    <section
-      className={styles['react-falling-emojis-container']}
-      ref={containerRef}
-    >
+    <section className={styles['react-falling-emojis-container']}>
       {getEmojiElements()}
     </section>
   );
