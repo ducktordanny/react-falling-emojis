@@ -20,54 +20,50 @@ const useFallingAnimation = ({
   const mainTimeline = useMemo(
     () =>
       gsap.timeline({
-        repeat: -1,
+        // repeat: -1,
         repeatRefresh: true
       }),
     []
   );
 
-  // useEffect(() => {
-  //   addEventListener('resize', () => {
-  //     setWindowHeight(window.innerHeight);
-  //     setWindowWidth(window.innerWidth);
-  //   });
-
-  //   return () => {
-  //     removeEventListener('resize', () => {});
-  //   };
-  // }, []);
-
+  // ! test if other functions still working...
   useEffect(() => {
-    const getRandomX = () => gsap.utils.random(0, window.innerWidth, true);
+    // this recursive function behaves like the timeline would be repeated, but
+    // also sensitive for window resizing...
+    const initFallingAnimation = () => {
+      const getRandomX = () => gsap.utils.random(0, window.innerWidth, true);
 
-    const animateFrom = {
-      y: -size,
-      x: getRandomX(),
-      repeatRefresh: true
+      const animateFrom = {
+        y: -size,
+        x: getRandomX(),
+        repeatRefresh: true
+      };
+
+      const animateTo = {
+        y: window.innerHeight + size,
+        x: getRandomX(),
+        repeatRefresh: true
+      };
+
+      mainTimeline
+        .fromTo(
+          `#${id}`,
+          { ...(reverse ? animateTo : animateFrom) },
+          {
+            ...(reverse ? animateFrom : animateTo),
+            delay: gsap.utils.random(0, speed, true),
+            duration: speed,
+            ease: 'none',
+            repeat: 1,
+            onComplete: () => {
+              initFallingAnimation();
+            }
+          }
+        )
+        .play();
     };
 
-    const animateTo = {
-      y: window.innerHeight + size,
-      x: getRandomX(),
-      repeatRefresh: true,
-      onRepeat: () => {
-        console.log(window.innerWidth);
-      }
-    };
-
-    mainTimeline
-      .fromTo(
-        `#${id}`,
-        { ...(reverse ? animateTo : animateFrom) },
-        {
-          ...(reverse ? animateFrom : animateTo),
-          delay: gsap.utils.random(0, speed, true),
-          duration: speed,
-          ease: 'none',
-          repeat: -1
-        }
-      )
-      .play();
+    initFallingAnimation();
 
     return () => {
       // clean-up

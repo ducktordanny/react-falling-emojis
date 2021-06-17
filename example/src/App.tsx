@@ -27,10 +27,11 @@ const App = () => {
   return (
     <FallingEmojis
       emojis={['⚽️', '🦆', '🎉', '👻']}
-      speed={10}
-      density={5}
-      shake
+      speed={5}
+      density={1}
+      // shake
       size={50}
+      disable={fallingEmojiSwitch}
     />
   );
 };

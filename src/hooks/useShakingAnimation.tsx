@@ -7,7 +7,7 @@ interface shakingAnimationProps {
 }
 
 const useShakingAnimation = ({ id, shake }: shakingAnimationProps) => {
-  const shakeTimeline = useMemo(
+  const timeline = useMemo(
     () =>
       gsap.timeline({
         repeat: -1,
@@ -18,11 +18,11 @@ const useShakingAnimation = ({ id, shake }: shakingAnimationProps) => {
 
   useEffect(() => {
     if (shake) {
-      shakeTimeline.clear();
+      timeline.clear();
       const shakingStartFrom = gsap.utils.random([
         30, -30, 20, -20, 10, -10, 40, -40
       ]);
-      shakeTimeline.fromTo(
+      timeline.fromTo(
         `#${id}`,
         {
           rotation: shakingStartFrom
@@ -37,10 +37,12 @@ const useShakingAnimation = ({ id, shake }: shakingAnimationProps) => {
         }
       );
     } else {
-      shakeTimeline.clear();
-      shakeTimeline.set(`#${id}`, { rotation: 0 });
+      timeline.clear();
+      timeline.set(`#${id}`, { rotation: 0 });
     }
   }, [shake]);
+
+  return timeline;
 };
 
 export default useShakingAnimation;
