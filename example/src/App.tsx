@@ -28,8 +28,8 @@ const App = () => {
     <FallingEmojis
       emojis={['⚽️', '🦆', '🎉', '👻']}
       speed={10}
-      density={10}
-      shake={fallingEmojiSwitch}
+      density={5}
+      shake
       size={50}
     />
   );

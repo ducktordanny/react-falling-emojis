@@ -27,7 +27,8 @@ const FallingEmojis: React.FC<RainSettings> = ({
   useEffect(() => {
     gsap.set(`.${styles['emoji-container']}`, {
       top: `-${size}px`,
-      fontSize: `${size}px`
+      fontSize: `${size}px`,
+      opacity: 1
     });
   }, [size]);
 

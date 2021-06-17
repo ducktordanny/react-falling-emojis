@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 import gsap from 'gsap';
 
 interface fallingAnimationProps {
@@ -14,8 +14,8 @@ const useFallingAnimation = ({
   size,
   speed
 }: fallingAnimationProps) => {
-  const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
-  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+  // const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
+  // const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
 
   const mainTimeline = useMemo(
     () =>
@@ -26,35 +26,33 @@ const useFallingAnimation = ({
     []
   );
 
-  useEffect(() => {
-    addEventListener('resize', () => {
-      setWindowHeight(window.innerHeight);
-      setWindowWidth(window.innerWidth);
-    });
+  // useEffect(() => {
+  //   addEventListener('resize', () => {
+  //     setWindowHeight(window.innerHeight);
+  //     setWindowWidth(window.innerWidth);
+  //   });
 
-    return () => {
-      removeEventListener('resize', () => {
-        setWindowHeight(-1);
-        setWindowWidth(-1);
-      });
-    };
-  }, []);
+  //   return () => {
+  //     removeEventListener('resize', () => {});
+  //   };
+  // }, []);
 
   useEffect(() => {
-    if (windowHeight < 0 || windowWidth < 0) {
-      console.error('[ReactFallingEmojis]: Something went wrong.');
-      return;
-    }
+    const getRandomX = () => gsap.utils.random(0, window.innerWidth, true);
 
     const animateFrom = {
       y: -size,
-      x: gsap.utils.random(-50, windowWidth + 50, true),
+      x: getRandomX(),
       repeatRefresh: true
     };
+
     const animateTo = {
-      y: windowHeight + size,
-      x: gsap.utils.random(-50, windowWidth + 50, true),
-      repeatRefresh: true
+      y: window.innerHeight + size,
+      x: getRandomX(),
+      repeatRefresh: true,
+      onRepeat: () => {
+        console.log(window.innerWidth);
+      }
     };
 
     mainTimeline
@@ -75,7 +73,7 @@ const useFallingAnimation = ({
       // clean-up
       mainTimeline.clear();
     };
-  }, [windowHeight, windowWidth, reverse]);
+  }, [reverse]);
 
   // ! TEST LATER THE FOLLOWING:
   // is it gonna update immediately?
