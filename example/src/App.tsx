@@ -29,9 +29,8 @@ const App = () => {
       emojis={['⚽️', '🦆', '🎉', '👻']}
       speed={5}
       density={1}
-      // shake
+      shake={fallingEmojiSwitch}
       size={50}
-      disable={fallingEmojiSwitch}
     />
   );
 };

@@ -32,10 +32,15 @@ const FallingEmojis: React.FC<RainSettings> = ({
     });
   }, [size]);
 
-  // TODO: clean-up
-  // TODO: window resize is still a problem
+  /**
+   * TODO: once I already tried to use stagger instead of the current solution. Should I give another chance to it? (might be more optimal...)
+   */
 
-  // hadnling density
+  /**
+   * Here we are handling the density's value e.g. if it's 0 or negative then we send error message.
+   * And we also warn the dev if he wants to use too much density
+   * ? should I add a prop what can remove the warning?
+   */
   const getEmojiElements = () => {
     if (density < 1) {
       console.error(

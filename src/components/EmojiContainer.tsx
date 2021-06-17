@@ -26,7 +26,9 @@ const EmojiContainer: React.FC<Props> = ({
   const mainTimeline = useFallingAnimation({ id, speed, size, reverse });
   const shakeTimeline = useShakingAnimation({ id, shake });
 
-  // if shake is not enabled then we don't have to pass shake's timeline...
+  /**
+   * it's listening for disable's changing and it makes a nice animation and also pause timelines if it's true
+   */
   useSmoothDisabling({
     timelines: shake ? [mainTimeline, shakeTimeline] : [mainTimeline],
     element: `.${styles['emoji-container']}`,
