@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
-import EmojiContainer from './components/EmojiContainer';
 import gsap from 'gsap';
+
+import EmojiContainer from './components/EmojiContainer';
+
 import styles from './styles.module.css';
 import 'react-falling-emojis/dist/index.css';
 
 interface RainSettings {
   emojis: string[];
-  timingType?: string;
+  timingType?: 'none' | 'linear';
   speed?: number; // in seconds
-  density?: number; // an element how many times should occur (we need to handle invalid values)
+  // an element how many times should occur (we need to handle invalid values)
+  density?: number;
   disable?: boolean;
   shake?: boolean;
   size?: number; // in pixels
@@ -26,7 +29,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
 }: RainSettings) => {
   useEffect(() => {
     gsap.set(`.${styles['emoji-container']}`, {
-      top: `-${size}px`,
+      // top: `-${size}px`,
       fontSize: `${size}px`,
       opacity: 1
     });
@@ -41,6 +44,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
    * And we also warn the dev if he wants to use too much density
    * ? should I add a prop what can remove the warning?
    */
+  // this could be separated into a component
   const getEmojiElements = () => {
     if (density < 1) {
       console.error(
@@ -48,11 +52,13 @@ const FallingEmojis: React.FC<RainSettings> = ({
       );
       return undefined;
     }
+
     if (density > 5 && emojis.length > 5) {
       console.warn(
         '[React Falling Emojis]: Too many elements could cause performance issues!'
       );
     }
+
     return emojis.map((emoji, index) => {
       const id = `react-falling-emoji-${index}`;
       const emojiContainerElement = (idNumber: number) => (

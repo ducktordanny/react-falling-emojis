@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import FallingEmojis from 'react-falling-emojis';
 
 const App = () => {
-  const [fallingEmojiSwitch, setFallingEmojiSwitch] = useState<boolean>(false);
+  const [reverse, setReverse] = useState<boolean>(false);
 
   useEffect(() => {
     window.addEventListener('keyup', (e) => {
       if (e.code === 'Space') {
-        setFallingEmojiSwitch(true);
+        setReverse(true);
       } else if (e.code === 'Enter') {
-        setFallingEmojiSwitch(false);
+        setReverse(false);
       }
     });
 
@@ -21,16 +21,16 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    console.log(fallingEmojiSwitch);
-  }, [fallingEmojiSwitch]);
+    console.log(reverse);
+  }, [reverse]);
 
   return (
     <FallingEmojis
       emojis={['⚽️', '🦆', '🎉', '👻']}
-      speed={5}
-      density={1}
-      shake={fallingEmojiSwitch}
-      size={50}
+      speed={10}
+      density={5}
+      reverse={reverse}
+      shake
     />
   );
 };

@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import gsap from 'gsap';
 
 interface fallingAnimationProps {
@@ -14,48 +14,48 @@ const useFallingAnimation = ({
   size,
   speed
 }: fallingAnimationProps) => {
-  // const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
-  // const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+  const reverseRef = useRef(reverse);
+  const sizeRef = useRef(size);
+  const speedRef = useRef(speed);
 
-  const mainTimeline = useMemo(
+  const timeline = useMemo(
     () =>
       gsap.timeline({
-        // repeat: -1,
         repeatRefresh: true
       }),
     []
   );
 
-  // ! test if other functions still working...
   useEffect(() => {
     // this recursive function behaves like the timeline would be repeated, but
-    // also sensitive for window resizing...
+    // also sensitive for window resizing and other changes...
     const initFallingAnimation = () => {
-      const getRandomX = () => gsap.utils.random(0, window.innerWidth, true);
+      const getRandomX = gsap.utils.random(0, window.innerWidth, true);
 
-      const animateFrom = {
-        y: -size,
-        x: getRandomX(),
-        repeatRefresh: true
-      };
+      const top = -(sizeRef.current * 2);
+      const bottom = window.innerHeight + sizeRef.current * 2;
 
-      const animateTo = {
-        y: window.innerHeight + size,
-        x: getRandomX(),
-        repeatRefresh: true
-      };
-
-      mainTimeline
+      timeline
         .fromTo(
           `#${id}`,
-          { ...(reverse ? animateTo : animateFrom) },
           {
-            ...(reverse ? animateFrom : animateTo),
-            delay: gsap.utils.random(0, speed, true),
-            duration: speed,
+            y: reverseRef.current ? bottom : top,
+            x: getRandomX,
+            repeatRefresh: true
+          },
+          {
+            y: reverseRef.current ? top : bottom,
+            x: getRandomX,
+            repeatRefresh: true,
+            delay: gsap.utils.random(0, speedRef.current, true),
+            duration: speedRef.current,
             ease: 'none',
-            repeat: 1,
             onComplete: () => {
+              timeline.clear();
+              initFallingAnimation();
+            },
+            onReverseComplete: () => {
+              timeline.clear();
               initFallingAnimation();
             }
           }
@@ -67,17 +67,23 @@ const useFallingAnimation = ({
 
     return () => {
       // clean-up
-      mainTimeline.clear();
+      timeline.clear();
     };
-  }, [reverse]);
+  }, []);
 
-  // ! TEST LATER THE FOLLOWING:
-  // is it gonna update immediately?
+  /**
+   * Update references on change
+   */
   useEffect(() => {
-    mainTimeline.restart();
-  }, [speed, size]);
+    if (reverse) {
+      timeline.reverse();
+    }
+    reverseRef.current = reverse;
+    speedRef.current = speed;
+    sizeRef.current = size;
+  }, [reverse, speed, size]);
 
-  return mainTimeline;
+  return timeline;
 };
 
 export default useFallingAnimation;

@@ -1,8 +1,10 @@
 import React from 'react';
-import styles from '../styles.module.css';
+
 import useFallingAnimation from '../hooks/useFallingAnimation';
 import useSmoothDisabling from '../hooks/useSmoothDisabling';
 import useShakingAnimation from '../hooks/useShakingAnimation';
+
+import styles from '../styles.module.css';
 
 interface Props {
   id: string;
@@ -23,7 +25,12 @@ const EmojiContainer: React.FC<Props> = ({
   size,
   reverse
 }: Props) => {
-  const mainTimeline = useFallingAnimation({ id, speed, size, reverse });
+  const mainTimeline = useFallingAnimation({
+    id,
+    speed,
+    size,
+    reverse
+  });
   const shakeTimeline = useShakingAnimation({ id, shake });
 
   /**

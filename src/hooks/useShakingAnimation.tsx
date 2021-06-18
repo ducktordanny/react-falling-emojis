@@ -43,9 +43,9 @@ const useShakingAnimation = ({ id, shake }: shakingAnimationProps) => {
         {
           rotation: -shakingStartFrom,
           yoyo: true,
-          ease: 'none',
           // the duration/speed of shaking can be different what makes it nicer
           duration: gsap.utils.random([1, 1.5, 2], true),
+          ease: 'none',
           repeat: -1,
           repeatRefresh: true
         }
