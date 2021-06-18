@@ -24,13 +24,14 @@ export default App;
 
 ### You can also set your own preferences with props. Currently the following props are available:
 
-| Name          | Type    | Description                                                                                                                                                                                 |
-| ------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| density       | number  | An emoji how many times could be represented. It gives a better look to the rain with cloning emojis. It could be useful when you don't have a lot of element. Important: it can't be null. |
-| speed         | number  | How its name also says you can set how fast it should reach the bottom of the screen.                                                                                                       |
-| disable       | boolean | If it's true then the falling animation stops.                                                                                                                                              |
-| resumeRestart | boolean | If it's true after re-enabling it's gonna continue the falling from that position where it was on the moment of disabling.                                                                  |
-| size          | number  | You can set the size of elements (in pixels).                                                                                                                                               |
+| Name    | Type     | Default | Description                                                                                                                                                                                                             |
+| ------- | -------- | :-----: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| emojis  | string[] |    -    | Here you can specify your falling elements what should be emojis (win: ctrl + ; mac: control + command + space), but it also could be any other texts. You have to include this prop otherwise you're gonna get errors. |
+| density | number   |    1    | An emoji how many times could be represented. It gives a better look to the rain with cloning emojis. It could be useful when you don't have a lot of element. Important: it can't be null or negative.                 |
+| speed   | number   |   10    | How its name also says you can set how fast it should reach the bottom of the screen.                                                                                                                                   |
+| disable | boolean  |  false  | If it's included (or true) then the falling animation stops with a fade out animation.                                                                                                                                  |
+| size    | number   |   30    | You can set the size of elements (in pixels).                                                                                                                                                                           |
+| reverse | boolean  |  false  | If you include this prop (or its value is true) the emjis/elements are gonna fly from the bottom to top instead of falling.                                                                                             |
 
 ### Some examples:
 
@@ -41,9 +42,9 @@ const App = () => (
   <FallingEmojis
     emojis={['⚽️', '🦆', '🎉', '👻']}
     speed={10}
-    density={10}
-    shake={true}
+    density={5}
     size={50}
+    shake
   />
 );
 
@@ -54,7 +55,12 @@ export default App;
 import FallingEmojis from 'react-falling-emojis';
 
 const App = () => (
-  <FallingEmojis emojis={['⚽️', '🦆', '🎉', '👻']} speed={15} density={10} />
+  <FallingEmojis
+    emojis={['⚽️', '🦆', '🎉', '👻']}
+    speed={15}
+    density={10}
+    reverse
+  />
 );
 
 export default App;
