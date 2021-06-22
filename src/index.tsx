@@ -6,15 +6,16 @@ import EmojiContainer from './components/EmojiContainer';
 import styles from './styles.module.css';
 import 'react-falling-emojis/dist/index.css';
 
+// ?fall once or repeat falling prop? well what should be its name? should it be repeat? yes
 interface RainSettings {
   emojis: string[];
   timingType?: 'none' | 'linear';
+  size?: number; // in pixels
   speed?: number; // in seconds
-  // an element how many times should occur (we need to handle invalid values)
   density?: number;
+  repeat?: number;
   disable?: boolean;
   shake?: boolean;
-  size?: number; // in pixels
   reverse?: boolean; // emojis would come from bottom to top
 }
 
@@ -25,7 +26,8 @@ const FallingEmojis: React.FC<RainSettings> = ({
   density = 1,
   shake = false,
   size = 30,
-  reverse = false
+  reverse = false,
+  repeat = -1
 }: RainSettings) => {
   useEffect(() => {
     gsap.set(`.${styles['emoji-container']}`, {
@@ -37,6 +39,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
 
   /**
    * TODO: once I already tried to use stagger instead of the current solution. Should I give another chance to it? (might be more optimal...)
+   * => Do we really need timelines? (https://greensock.com/forums/topic/11908-particle-system/) => One main timeline and it would get tweens from children
    */
 
   /**
@@ -53,7 +56,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
       return undefined;
     }
 
-    if (density > 5 && emojis.length > 5) {
+    if (density * emojis.length > 100) {
       console.warn(
         '[React Falling Emojis]: Too many elements could cause performance issues!'
       );
@@ -71,6 +74,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
           shake={shake}
           size={size}
           reverse={reverse}
+          repeat={repeat}
         />
       );
       const emojiElements: JSX.Element[] = [];

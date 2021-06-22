@@ -62,6 +62,7 @@
     "dist"
   ],
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
     "gsap": "^3.6.1"
   }
 }

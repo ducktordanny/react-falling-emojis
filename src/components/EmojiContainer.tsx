@@ -14,6 +14,7 @@ interface Props {
   disable: boolean;
   shake: boolean;
   reverse: boolean;
+  repeat: number;
 }
 
 const EmojiContainer: React.FC<Props> = ({
@@ -23,13 +24,15 @@ const EmojiContainer: React.FC<Props> = ({
   disable,
   shake,
   size,
-  reverse
+  reverse,
+  repeat
 }: Props) => {
   const mainTimeline = useFallingAnimation({
     id,
     speed,
     size,
-    reverse
+    reverse,
+    repeat
   });
   const shakeTimeline = useShakingAnimation({ id, shake });
 

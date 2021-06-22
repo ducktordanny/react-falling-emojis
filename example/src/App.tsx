@@ -1,37 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import FallingEmojis from 'react-falling-emojis';
 
+import NavBar from './components/NavBar';
+import Options from './components/Options';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      flexGrow: 1
+    }
+  })
+);
+
 const App = () => {
-  const [reverse, setReverse] = useState<boolean>(false);
+  const [fallingEnabled, setFallingEnabled] = useState<boolean>(true); // * by default it's gonna be false
+  const classes = useStyles();
 
-  useEffect(() => {
-    window.addEventListener('keyup', (e) => {
-      if (e.code === 'Space') {
-        setReverse(true);
-      } else if (e.code === 'Enter') {
-        setReverse(false);
-      }
-    });
-
-    return () => {
-      window.removeEventListener('keyup', () => {
-        console.log('removed');
-      });
-    };
-  }, []);
-
-  useEffect(() => {
-    console.log(reverse);
-  }, [reverse]);
+  const handleEnabling = () => {
+    setFallingEnabled((currentValue) => !currentValue);
+  };
 
   return (
-    <FallingEmojis
-      emojis={['⚽️', '🦆', '🎉', '👻']}
-      speed={10}
-      density={5}
-      reverse={reverse}
-      shake
-    />
+    <div className={classes.root}>
+      <NavBar
+        buttonName={fallingEnabled ? 'Disable falling' : 'Enable falling'}
+        onClick={handleEnabling}
+      />
+      <FallingEmojis
+        emojis={['⚽️', '🦆', '🎉', '👻']}
+        density={10}
+        shake
+        disable={!fallingEnabled}
+      />
+      <Options />
+    </div>
   );
 };
 
