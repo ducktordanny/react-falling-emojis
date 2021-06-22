@@ -21,19 +21,23 @@ const App = () => {
     setFallingEnabled((currentValue) => !currentValue);
   };
 
+  const handleOptionsUpdate = () => {
+    console.log('update...');
+  };
+
   return (
     <div className={classes.root}>
       <NavBar
         buttonName={fallingEnabled ? 'Disable falling' : 'Enable falling'}
         onClick={handleEnabling}
       />
+      <Options onUpdate={handleOptionsUpdate} />
       <FallingEmojis
         emojis={['⚽️', '🦆', '🎉', '👻']}
         density={10}
         shake
         disable={!fallingEnabled}
       />
-      <Options />
     </div>
   );
 };

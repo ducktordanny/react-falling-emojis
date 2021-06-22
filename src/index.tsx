@@ -9,7 +9,7 @@ import 'react-falling-emojis/dist/index.css';
 // ?fall once or repeat falling prop? well what should be its name? should it be repeat? yes
 interface RainSettings {
   emojis: string[];
-  timingType?: 'none' | 'linear';
+  timingType?: 'none' | 'linear'; // not implemented yet
   size?: number; // in pixels
   speed?: number; // in seconds
   density?: number;
