@@ -13,7 +13,7 @@ interface Props {
 
 const EmojiInput: React.FC<Props> = ({ onAdding }: Props) => {
   const [emojiElementInput, setEmojiElementInput] = useState<string>('');
-  const [emojis, setEmojis] = useState<string[]>(['🦆', '🙄']);
+  const [emojis, setEmojis] = useState<string[]>(['⚽️', '🦆', '🎉', '👻']);
   const classes = useStyles();
 
   const handleEmojiAdding = () => {

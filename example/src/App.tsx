@@ -7,7 +7,17 @@ import ReactFallingEmojisProps from './interfaces/ReactFallingEmojisProps';
 import useStyles from './hooks/useStyles';
 
 const App = () => {
-  const [fallingEnabled, setFallingEnabled] = useState<boolean>(false); // * by default it's gonna be false
+  const [fallingEnabled, setFallingEnabled] = useState<boolean>(false);
+  const [fallingEmojisProps, setFallingEmojisProps] =
+    useState<ReactFallingEmojisProps>({
+      emojis: ['⚽️', '🦆', '🎉', '👻'],
+      shake: false,
+      reverse: false,
+      repeat: -1,
+      density: 1,
+      speed: 10,
+      size: 25
+    });
   const classes = useStyles();
 
   const handleEnabling = () => {
@@ -15,7 +25,7 @@ const App = () => {
   };
 
   const handleOptionsUpdate = (e: ReactFallingEmojisProps) => {
-    console.log(e);
+    setFallingEmojisProps(e);
   };
 
   // TODO: EmojiInput tip label for emojis (Windows and macOS shortcut)
@@ -28,9 +38,13 @@ const App = () => {
       />
       <Options onUpdate={(e) => handleOptionsUpdate(e)} />
       <FallingEmojis
-        emojis={['⚽️', '🦆', '🎉', '👻']}
-        density={10}
-        shake
+        emojis={fallingEmojisProps.emojis}
+        shake={fallingEmojisProps.shake}
+        reverse={fallingEmojisProps.reverse}
+        repeat={fallingEmojisProps.repeat}
+        density={fallingEmojisProps.density}
+        speed={fallingEmojisProps.speed}
+        size={fallingEmojisProps.size}
         disable={!fallingEnabled}
       />
     </div>

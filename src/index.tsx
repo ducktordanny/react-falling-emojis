@@ -38,6 +38,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
   }, [size]);
 
   /**
+   * TODO: we have some issue with the size prop... sometimes not every emoji is changing
    * TODO: once I already tried to use stagger instead of the current solution. Should I give another chance to it? (might be more optimal...)
    * => Do we really need timelines? (https://greensock.com/forums/topic/11908-particle-system/) => One main timeline and it would get tweens from children
    */

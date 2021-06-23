@@ -20,7 +20,7 @@ interface Props {
 const Options: React.FC<Props> = ({ onUpdate }: Props) => {
   // ? separated by comas ?
   // ? Adding and Removing elements ?
-  const [emojis, setEmojis] = useState<string[]>([]);
+  const [emojis, setEmojis] = useState<string[]>(['⚽️', '🦆', '🎉', '👻']);
   const [shake, setShake] = useState<boolean>(false);
   const [reverse, setReverse] = useState<boolean>(false);
   const [repeat, setRepeat] = useState<number>(-1);
