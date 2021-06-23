@@ -3,6 +3,7 @@ import FallingEmojis from 'react-falling-emojis';
 
 import NavBar from './components/NavBar';
 import Options from './components/Options';
+import ReactFallingEmojisProps from './interfaces/ReactFallingEmojisProps';
 import useStyles from './hooks/useStyles';
 
 const App = () => {
@@ -13,9 +14,11 @@ const App = () => {
     setFallingEnabled((currentValue) => !currentValue);
   };
 
-  const handleOptionsUpdate = () => {
-    console.log('update...');
+  const handleOptionsUpdate = (e: ReactFallingEmojisProps) => {
+    console.log(e);
   };
+
+  // TODO: EmojiInput tip label for emojis (Windows and macOS shortcut)
 
   return (
     <div className={classes.root}>
@@ -23,7 +26,7 @@ const App = () => {
         buttonName={fallingEnabled ? 'Disable falling' : 'Enable falling'}
         onClick={handleEnabling}
       />
-      <Options onUpdate={handleOptionsUpdate} />
+      <Options onUpdate={(e) => handleOptionsUpdate(e)} />
       <FallingEmojis
         emojis={['⚽️', '🦆', '🎉', '👻']}
         density={10}

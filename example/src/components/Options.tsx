@@ -8,29 +8,19 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import EmojiInput from './EmojiInput';
-// import useStyles from '../hooks/useStyles';
+import ReactFallingEmojisProps from '../interfaces/ReactFallingEmojisProps';
 import useStyles from '../hooks/useStyles';
 
 // timingType?: 'none' | 'linear';
 
-interface ReactFallingEmojisProps {
-  emojis: Array<string>;
-  shake: boolean;
-  reverse: boolean;
-  repeat: number;
-  density: number;
-  speed: number;
-  size: number;
-}
-
 interface Props {
-  onUpdate?: (props: ReactFallingEmojisProps) => void;
+  onUpdate: (props: ReactFallingEmojisProps) => void;
 }
 
 const Options: React.FC<Props> = ({ onUpdate }: Props) => {
   // ? separated by comas ?
   // ? Adding and Removing elements ?
-  // const [emojisString, setEmojisString] = useState<string>('');
+  const [emojis, setEmojis] = useState<string[]>([]);
   const [shake, setShake] = useState<boolean>(false);
   const [reverse, setReverse] = useState<boolean>(false);
   const [repeat, setRepeat] = useState<number>(-1);
@@ -43,12 +33,13 @@ const Options: React.FC<Props> = ({ onUpdate }: Props) => {
   console.log(classes.optionsRoot);
 
   useEffect(() => {
+    // verification
     console.log(shake);
   }, [shake]);
 
   return (
     <Container className={classes.optionsRoot}>
-      <EmojiInput />
+      <EmojiInput onAdding={(e) => setEmojis(e)} />
       <Box className={classes.optionsSwitchBox}>
         <FormControlLabel
           control={
@@ -71,46 +62,45 @@ const Options: React.FC<Props> = ({ onUpdate }: Props) => {
           value={reverse}
         />
       </Box>
-      <TextField
-        type='number'
-        label='Repeat'
-        value={repeat}
-        onChange={(e) => setRepeat(+e.target.value)}
-      />
-      <TextField
-        type='number'
-        label='Density'
-        value={density}
-        onChange={(e) => setDensity(+e.target.value)}
-      />
-      <TextField
-        type='number'
-        label='Speed'
-        value={speed}
-        onChange={(e) => setSpeed(+e.target.value)}
-      />
-      <TextField
-        type='number'
-        label='Size (in pixels)'
-        value={size}
-        onChange={(e) => setSize(+e.target.value)}
-      />
+      <Box className={classes.optionsTextFields}>
+        <TextField
+          type='number'
+          label='Repeat'
+          value={repeat}
+          onChange={(e) => setRepeat(+e.target.value)}
+        />
+        <TextField
+          type='number'
+          label='Density'
+          value={density}
+          onChange={(e) => setDensity(+e.target.value)}
+        />
+        <TextField
+          type='number'
+          label='Speed'
+          value={speed}
+          onChange={(e) => setSpeed(+e.target.value)}
+        />
+        <TextField
+          type='number'
+          label='Size (in pixels)'
+          value={size}
+          onChange={(e) => setSize(+e.target.value)}
+        />
+      </Box>
       <Button
-        type='submit'
         variant='contained'
         color='primary'
-        onSubmit={() =>
-          onUpdate
-            ? onUpdate({
-                emojis: [],
-                shake: false,
-                reverse: false,
-                repeat: -1,
-                density: 1,
-                speed: 10,
-                size: 25
-              })
-            : ''
+        onClick={() =>
+          onUpdate({
+            emojis,
+            shake,
+            reverse,
+            repeat,
+            density,
+            speed,
+            size
+          })
         }
       >
         Update

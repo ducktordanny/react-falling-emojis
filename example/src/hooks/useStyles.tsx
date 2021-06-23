@@ -21,11 +21,16 @@ const useStyles = makeStyles(() =>
       display: 'flex',
       flexDirection: 'column'
     },
-    emojiInputRoot: {
-      padding: '.5rem'
+    optionsTextFields: {
+      display: 'flex',
+      flexDirection: 'column',
+      '& > .MuiFormControl-root.MuiTextField-root': {
+        margin: '.5rem'
+      }
     },
     emojiInputBox: {
       display: 'flex',
+      alignItems: 'center',
       '& button': {
         marginLeft: '.5rem'
       }
