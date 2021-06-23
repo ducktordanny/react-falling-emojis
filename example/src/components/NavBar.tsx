@@ -1,20 +1,10 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    menuButton: {
-      marginRight: theme.spacing(2)
-    },
-    title: {
-      flexGrow: 1
-    }
-  })
-);
+import useStyles from '../hooks/useStyles';
 
 interface NavBarProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -30,10 +20,14 @@ const NavBar: React.FC<NavBarProps> = ({
   return (
     <AppBar position='static'>
       <Toolbar>
-        <Typography variant='h6' className={classes.title}>
+        <Typography variant='h6' className={classes.navBarTitle}>
           React Falling Emojis
         </Typography>
-        <Button color='inherit' onClick={(e) => (onClick ? onClick(e) : '')}>
+        <Button
+          variant='contained'
+          color='default'
+          onClick={(e) => (onClick ? onClick(e) : '')}
+        >
           {buttonName ? buttonName : 'Click Me'}
         </Button>
       </Toolbar>

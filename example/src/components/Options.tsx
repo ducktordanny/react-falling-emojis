@@ -1,26 +1,17 @@
 import React, { useEffect, useState } from 'react';
+
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+
+import EmojiInput from './EmojiInput';
+// import useStyles from '../hooks/useStyles';
+import useStyles from '../hooks/useStyles';
 
 // timingType?: 'none' | 'linear';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      margin: '.5rem',
-      '& > *': {
-        margin: '.5rem'
-      }
-    }
-  })
-);
 
 interface ReactFallingEmojisProps {
   emojis: Array<string>;
@@ -39,46 +30,47 @@ interface Props {
 const Options: React.FC<Props> = ({ onUpdate }: Props) => {
   // ? separated by comas ?
   // ? Adding and Removing elements ?
-  const [emojisString, setEmojisString] = useState<string>('');
+  // const [emojisString, setEmojisString] = useState<string>('');
   const [shake, setShake] = useState<boolean>(false);
   const [reverse, setReverse] = useState<boolean>(false);
   const [repeat, setRepeat] = useState<number>(-1);
   const [density, setDensity] = useState<number>(1);
   const [speed, setSpeed] = useState<number>(10);
   const [size, setSize] = useState<number>(25);
+
   const classes = useStyles();
+
+  console.log(classes.optionsRoot);
 
   useEffect(() => {
     console.log(shake);
   }, [shake]);
 
   return (
-    <Container className={classes.root}>
-      <TextField
-        label='Emojis'
-        value={emojisString}
-        onChange={(e) => setEmojisString(e.target.value)}
-      />
-      <FormControlLabel
-        control={
-          <Switch
-            color='primary'
-            onChange={() => setShake((currentValue) => !currentValue)}
-          />
-        }
-        label='Shake'
-        value={shake}
-      />
-      <FormControlLabel
-        control={
-          <Switch
-            color='primary'
-            onChange={() => setReverse((currentValue) => !currentValue)}
-          />
-        }
-        label='Reverse'
-        value={reverse}
-      />
+    <Container className={classes.optionsRoot}>
+      <EmojiInput />
+      <Box className={classes.optionsSwitchBox}>
+        <FormControlLabel
+          control={
+            <Switch
+              color='primary'
+              onChange={() => setShake((currentValue) => !currentValue)}
+            />
+          }
+          label='Shake'
+          value={shake}
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              color='primary'
+              onChange={() => setReverse((currentValue) => !currentValue)}
+            />
+          }
+          label='Reverse'
+          value={reverse}
+        />
+      </Box>
       <TextField
         type='number'
         label='Repeat'

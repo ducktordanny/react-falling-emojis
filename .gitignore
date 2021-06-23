@@ -2,7 +2,6 @@
 /dist
 /example/node_modules
 /example/build
+/images
 .DS_Store
 .vscode
-
-
