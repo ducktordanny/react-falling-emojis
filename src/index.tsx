@@ -2,22 +2,10 @@ import React, { useEffect } from 'react';
 import gsap from 'gsap';
 
 import EmojiContainer from './components/EmojiContainer';
+import RainSettings from './interfaces/RainSettings'; // eslint-disable-line
 
 import styles from './styles.module.css';
 import 'react-falling-emojis/dist/index.css';
-
-// ?fall once or repeat falling prop? well what should be its name? should it be repeat? yes
-interface RainSettings {
-  emojis: string[];
-  timingType?: 'none' | 'linear'; // not implemented yet
-  size?: number; // in pixels
-  speed?: number; // in seconds
-  density?: number;
-  repeat?: number;
-  disable?: boolean;
-  shake?: boolean;
-  reverse?: boolean; // emojis would come from bottom to top
-}
 
 const FallingEmojis: React.FC<RainSettings> = ({
   emojis,
@@ -39,7 +27,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
 
   /**
    * TODO: we could include an opacity prop
-   * TODO: we have some issue with the size prop... sometimes not every emoji is changing
+   * TODO: we have some issues with the size prop... sometimes not every emoji is changing
    * TODO: once I already tried to use stagger instead of the current solution. Should I give another chance to it? (might be more optimal...)
    * => Do we really need timelines? (https://greensock.com/forums/topic/11908-particle-system/) => One main timeline and it would get tweens from children
    */

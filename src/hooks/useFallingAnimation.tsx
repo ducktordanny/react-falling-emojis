@@ -1,13 +1,7 @@
 import { useState, useRef, useMemo, useEffect } from 'react';
 import gsap from 'gsap';
 
-interface fallingAnimationProps {
-  id: string;
-  reverse: boolean;
-  size: number;
-  speed: number;
-  repeat: number;
-}
+import FallingAnimationProps from '../interfaces/FallingAnimationProps'; // eslint-disable-line
 
 const useFallingAnimation = ({
   id,
@@ -15,7 +9,7 @@ const useFallingAnimation = ({
   size,
   speed,
   repeat
-}: fallingAnimationProps) => {
+}: FallingAnimationProps) => {
   const [repeatCounter, setRepeatCounter] = useState<number>(0);
   const reverseRef = useRef(reverse);
   const sizeRef = useRef(size);

@@ -3,21 +3,11 @@ import React from 'react';
 import useFallingAnimation from '../hooks/useFallingAnimation';
 import useSmoothDisabling from '../hooks/useSmoothDisabling';
 import useShakingAnimation from '../hooks/useShakingAnimation';
+import ContainerProps from '../interfaces/ContainerProps'; // eslint-disable-line
 
 import styles from '../styles.module.css';
 
-interface Props {
-  id: string;
-  emoji: string;
-  size: number;
-  speed: number;
-  disable: boolean;
-  shake: boolean;
-  reverse: boolean;
-  repeat: number;
-}
-
-const EmojiContainer: React.FC<Props> = ({
+const EmojiContainer: React.FC<ContainerProps> = ({
   id,
   emoji,
   speed,
@@ -26,7 +16,7 @@ const EmojiContainer: React.FC<Props> = ({
   size,
   reverse,
   repeat
-}: Props) => {
+}: ContainerProps) => {
   const mainTimeline = useFallingAnimation({
     id,
     speed,

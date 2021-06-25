@@ -1,12 +1,9 @@
 import { useMemo, useEffect } from 'react';
 import gsap from 'gsap';
 
-interface shakingAnimationProps {
-  id: string;
-  shake: boolean;
-}
+import ShakingAnimationProps from '../interfaces/ShakingAnimationProps'; // eslint-disable-line
 
-const useShakingAnimation = ({ id, shake }: shakingAnimationProps) => {
+const useShakingAnimation = ({ id, shake }: ShakingAnimationProps) => {
   const timeline = useMemo(
     () =>
       gsap.timeline({
