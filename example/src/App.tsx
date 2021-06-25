@@ -14,9 +14,9 @@ const App = () => {
       shake: false,
       reverse: false,
       repeat: -1,
-      density: 1,
+      density: 5,
       speed: 10,
-      size: 25
+      size: 30
     });
   const classes = useStyles();
 
@@ -36,7 +36,10 @@ const App = () => {
         buttonName={fallingEnabled ? 'Disable falling' : 'Enable falling'}
         onClick={handleEnabling}
       />
-      <Options onUpdate={(e) => handleOptionsUpdate(e)} />
+      <Options
+        fallingEmojisProps={fallingEmojisProps}
+        onUpdate={(e) => handleOptionsUpdate(e)}
+      />
       <FallingEmojis
         emojis={fallingEmojisProps.emojis}
         shake={fallingEmojisProps.shake}

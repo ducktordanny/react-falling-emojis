@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
@@ -14,28 +14,22 @@ import useStyles from '../hooks/useStyles';
 // timingType?: 'none' | 'linear';
 
 interface Props {
+  fallingEmojisProps: ReactFallingEmojisProps;
   onUpdate: (props: ReactFallingEmojisProps) => void;
 }
 
-const Options: React.FC<Props> = ({ onUpdate }: Props) => {
+const Options: React.FC<Props> = ({ fallingEmojisProps, onUpdate }: Props) => {
   // ? separated by comas ?
   // ? Adding and Removing elements ?
-  const [emojis, setEmojis] = useState<string[]>(['⚽️', '🦆', '🎉', '👻']);
-  const [shake, setShake] = useState<boolean>(false);
-  const [reverse, setReverse] = useState<boolean>(false);
-  const [repeat, setRepeat] = useState<number>(-1);
-  const [density, setDensity] = useState<number>(1);
-  const [speed, setSpeed] = useState<number>(10);
-  const [size, setSize] = useState<number>(25);
+  const [emojis, setEmojis] = useState<string[]>(fallingEmojisProps.emojis);
+  const [shake, setShake] = useState<boolean>(fallingEmojisProps.shake);
+  const [reverse, setReverse] = useState<boolean>(fallingEmojisProps.reverse);
+  const [repeat, setRepeat] = useState<number>(fallingEmojisProps.repeat);
+  const [density, setDensity] = useState<number>(fallingEmojisProps.density);
+  const [speed, setSpeed] = useState<number>(fallingEmojisProps.speed);
+  const [size, setSize] = useState<number>(fallingEmojisProps.size);
 
   const classes = useStyles();
-
-  console.log(classes.optionsRoot);
-
-  useEffect(() => {
-    // verification
-    console.log(shake);
-  }, [shake]);
 
   return (
     <Container className={classes.optionsRoot}>
