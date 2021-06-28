@@ -15,7 +15,8 @@ const EmojiContainer: React.FC<ContainerProps> = ({
   shake,
   size,
   reverse,
-  repeat
+  repeat,
+  opacity
 }: ContainerProps) => {
   const mainTimeline = useFallingAnimation({
     id,
@@ -32,7 +33,8 @@ const EmojiContainer: React.FC<ContainerProps> = ({
   useSmoothDisabling({
     timelines: shake ? [mainTimeline, shakeTimeline] : [mainTimeline],
     element: `.${styles['emoji-container']}`,
-    disable
+    disable,
+    opacity
   });
 
   return (

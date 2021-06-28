@@ -9,4 +9,5 @@ export default interface RainSettings {
   disable?: boolean;
   shake?: boolean;
   reverse?: boolean; // emojis would come from bottom to top
+  opacity?: number; // its value can only be between 1 and 0
 }

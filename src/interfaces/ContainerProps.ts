@@ -7,4 +7,5 @@ export default interface ContainerProps {
   shake: boolean;
   reverse: boolean;
   repeat: number;
+  opacity: number;
 }

@@ -15,18 +15,31 @@ const FallingEmojis: React.FC<RainSettings> = ({
   shake = false,
   size = 30,
   reverse = false,
-  repeat = -1
+  repeat = -1,
+  opacity = 1
 }: RainSettings) => {
   useEffect(() => {
     gsap.set(`.${styles['emoji-container']}`, {
-      // top: `-${size}px`,
-      fontSize: `${size}px`,
-      opacity: 1
+      fontSize: `${size}px`
+      // opacity: 1
+      // ?is opacity really necessary here?
     });
   }, [size]);
 
+  // it's not gonna be good here...
+  useEffect(() => {
+    if (opacity > 1 || opacity < 0) {
+      console.error(
+        `[React Falling Emojis]: Opacity's value has to be between 0 and 1`
+      );
+    }
+    gsap.to(`.${styles['emoji-container']}`, {
+      opacity
+    });
+  }, [opacity]);
+
   /**
-   * TODO: we could include an opacity prop
+   * //TODO: we could include an opacity prop
    * TODO: we have some issues with the size prop... sometimes not every emoji is changing
    * TODO: once I already tried to use stagger instead of the current solution. Should I give another chance to it? (might be more optimal...)
    * => Do we really need timelines? (https://greensock.com/forums/topic/11908-particle-system/) => One main timeline and it would get tweens from children
@@ -65,6 +78,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
           size={size}
           reverse={reverse}
           repeat={repeat}
+          opacity={opacity}
         />
       );
       const emojiElements: JSX.Element[] = [];

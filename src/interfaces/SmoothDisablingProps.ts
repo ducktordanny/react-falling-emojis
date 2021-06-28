@@ -5,4 +5,5 @@ export default interface SmoothDisablingProps {
   element: string;
   // if disable is getting true then the useEffect getting triggered
   disable: boolean;
+  opacity: number;
 }
