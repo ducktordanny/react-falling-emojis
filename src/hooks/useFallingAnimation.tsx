@@ -96,11 +96,6 @@ const useFallingAnimation = ({
   }, [size]);
 
   useEffect(() => {
-    // not implemented yet
-    console.log('Repeat:', repeat);
-  }, [repeat]);
-
-  useEffect(() => {
     if (repeat !== -1 && repeat === repeatCounter) {
       timeline.clear();
     }
