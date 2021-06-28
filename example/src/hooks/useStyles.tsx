@@ -15,6 +15,9 @@ const useStyles = makeStyles(() =>
       margin: '.5rem',
       '& > *': {
         margin: '.5rem'
+      },
+      '& > .MuiBox-root': {
+        color: 'white'
       }
     },
     optionsSwitchBox: {

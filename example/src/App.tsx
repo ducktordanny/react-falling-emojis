@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import FallingEmojis from 'react-falling-emojis';
 
 import NavBar from './components/NavBar';
 import Options from './components/Options';
 import ReactFallingEmojisProps from './interfaces/ReactFallingEmojisProps';
-import useStyles from './hooks/useStyles';
+// import useStyles from './hooks/useStyles';
 
 const App = () => {
   const [fallingEnabled, setFallingEnabled] = useState<boolean>(false);
@@ -19,7 +20,23 @@ const App = () => {
       size: 30,
       opacity: 1
     });
-  const classes = useStyles();
+  // const classes = useStyles();
+  const theme = createMuiTheme({
+    palette: {
+      type: 'dark',
+      primary: {
+        main: '#E3C567'
+      },
+      secondary: {
+        // main: '#BA1F33'
+        main: '#FF5E5B'
+      }
+    }
+  });
+
+  // TODO: white color
+  // TODO: opportunity to copy current settings (Button name: [Copy component with current settings]?)
+  // TODO: logo idea: falling fire ball where the ball is an emoji
 
   const handleEnabling = () => {
     setFallingEnabled((currentValue) => !currentValue);
@@ -34,7 +51,7 @@ const App = () => {
   }, [fallingEmojisProps]);
 
   return (
-    <div className={classes.root}>
+    <ThemeProvider theme={theme}>
       <NavBar
         buttonName={fallingEnabled ? 'Disable falling' : 'Enable falling'}
         onClick={handleEnabling}
@@ -43,18 +60,8 @@ const App = () => {
         fallingEmojisProps={fallingEmojisProps}
         onUpdate={(e) => handleOptionsUpdate(e)}
       />
-      <FallingEmojis
-        emojis={fallingEmojisProps.emojis}
-        shake={fallingEmojisProps.shake}
-        reverse={fallingEmojisProps.reverse}
-        repeat={fallingEmojisProps.repeat}
-        density={fallingEmojisProps.density}
-        speed={fallingEmojisProps.speed}
-        size={fallingEmojisProps.size}
-        opacity={fallingEmojisProps.opacity}
-        disable={!fallingEnabled}
-      />
-    </div>
+      <FallingEmojis disable={!fallingEnabled} {...fallingEmojisProps} />
+    </ThemeProvider>
   );
 };
 
