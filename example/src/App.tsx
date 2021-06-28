@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FallingEmojis from 'react-falling-emojis';
 
 import NavBar from './components/NavBar';
@@ -16,7 +16,8 @@ const App = () => {
       repeat: -1,
       density: 5,
       speed: 10,
-      size: 30
+      size: 30,
+      opacity: 1
     });
   const classes = useStyles();
 
@@ -28,7 +29,9 @@ const App = () => {
     setFallingEmojisProps(e);
   };
 
-  // TODO: EmojiInput tip label for emojis (Windows and macOS shortcut)
+  useEffect(() => {
+    console.log(fallingEmojisProps);
+  }, [fallingEmojisProps]);
 
   return (
     <div className={classes.root}>
@@ -48,6 +51,7 @@ const App = () => {
         density={fallingEmojisProps.density}
         speed={fallingEmojisProps.speed}
         size={fallingEmojisProps.size}
+        opacity={fallingEmojisProps.opacity}
         disable={!fallingEnabled}
       />
     </div>

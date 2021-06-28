@@ -6,4 +6,5 @@ export default interface ReactFallingEmojisProps {
   density: number;
   speed: number;
   size: number;
+  opacity: number;
 }

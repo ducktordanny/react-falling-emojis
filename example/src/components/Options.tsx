@@ -19,83 +19,116 @@ interface Props {
 }
 
 const Options: React.FC<Props> = ({ fallingEmojisProps, onUpdate }: Props) => {
-  // ? separated by comas ?
-  // ? Adding and Removing elements ?
-  const [emojis, setEmojis] = useState<string[]>(fallingEmojisProps.emojis);
-  const [shake, setShake] = useState<boolean>(fallingEmojisProps.shake);
-  const [reverse, setReverse] = useState<boolean>(fallingEmojisProps.reverse);
-  const [repeat, setRepeat] = useState<number>(fallingEmojisProps.repeat);
-  const [density, setDensity] = useState<number>(fallingEmojisProps.density);
-  const [speed, setSpeed] = useState<number>(fallingEmojisProps.speed);
-  const [size, setSize] = useState<number>(fallingEmojisProps.size);
-
+  const [fallingEmojis, setFallingEmojis] =
+    useState<ReactFallingEmojisProps>(fallingEmojisProps);
   const classes = useStyles();
 
   return (
     <Container className={classes.optionsRoot}>
-      <EmojiInput onAdding={(e) => setEmojis(e)} />
+      <EmojiInput
+        defaultEmojis={fallingEmojis.emojis}
+        onAdding={(emojis) =>
+          setFallingEmojis((currentValue) => ({ ...currentValue, emojis }))
+        }
+      />
       <Box className={classes.optionsSwitchBox}>
         <FormControlLabel
           control={
             <Switch
               color='primary'
-              onChange={() => setShake((currentValue) => !currentValue)}
+              onChange={() =>
+                setFallingEmojis((currentValue) => ({
+                  ...currentValue,
+                  shake: !currentValue.shake
+                }))
+              }
             />
           }
           label='Shake'
-          value={shake}
+          value={fallingEmojis.shake}
         />
         <FormControlLabel
           control={
             <Switch
               color='primary'
-              onChange={() => setReverse((currentValue) => !currentValue)}
+              onChange={() =>
+                setFallingEmojis((currentValue) => ({
+                  ...currentValue,
+                  reverse: !currentValue.reverse
+                }))
+              }
             />
           }
           label='Reverse'
-          value={reverse}
+          value={fallingEmojis.reverse}
         />
       </Box>
       <Box className={classes.optionsTextFields}>
         <TextField
           type='number'
           label='Repeat'
-          value={repeat}
-          onChange={(e) => setRepeat(+e.target.value)}
+          value={fallingEmojis.repeat}
+          onChange={(e) =>
+            setFallingEmojis((currentValue) => ({
+              ...currentValue,
+              repeat: +e.target.value
+            }))
+          }
         />
         <TextField
           type='number'
           label='Density'
-          value={density}
-          onChange={(e) => setDensity(+e.target.value)}
+          value={fallingEmojis.density}
+          onChange={(e) =>
+            setFallingEmojis((currentValue) => ({
+              ...currentValue,
+              density: +e.target.value
+            }))
+          }
         />
         <TextField
           type='number'
           label='Speed'
-          value={speed}
-          onChange={(e) => setSpeed(+e.target.value)}
+          value={fallingEmojis.speed}
+          onChange={(e) =>
+            setFallingEmojis((currentValue) => ({
+              ...currentValue,
+              speed: +e.target.value
+            }))
+          }
         />
         <TextField
           type='number'
           label='Size (in pixels)'
-          value={size}
-          onChange={(e) => setSize(+e.target.value)}
+          value={fallingEmojis.size}
+          onChange={(e) =>
+            setFallingEmojis((currentValue) => ({
+              ...currentValue,
+              size: +e.target.value
+            }))
+          }
+        />
+        <TextField
+          type='number'
+          label='Opacity'
+          value={fallingEmojis.opacity}
+          InputProps={{ inputProps: { min: 0, max: 1, step: 0.1 } }}
+          onChange={(e) => {
+            const value = +e.target.value;
+            if (value > 1 || value < 0) return;
+            setFallingEmojis((currentValue) => ({
+              ...currentValue,
+              opacity: value
+            }));
+          }}
         />
       </Box>
       <Button
         variant='contained'
         color='primary'
-        onClick={() =>
-          onUpdate({
-            emojis,
-            shake,
-            reverse,
-            repeat,
-            density,
-            speed,
-            size
-          })
-        }
+        onClick={() => {
+          onUpdate(fallingEmojis);
+        }}
       >
         Update
       </Button>
