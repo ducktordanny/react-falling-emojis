@@ -1,4 +1,4 @@
-# react-falling-emojis
+# ![ReactFallingEmojisLogo](./example/src/assets/react-falling-emojis-logo-black.svg)
 
 > Choose your emojis and make a rain with them.
 
