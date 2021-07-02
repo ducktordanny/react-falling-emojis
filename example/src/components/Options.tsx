@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import gsap from 'gsap';
 
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
@@ -23,8 +24,16 @@ const Options: React.FC<Props> = ({ fallingEmojisProps, onUpdate }: Props) => {
     useState<ReactFallingEmojisProps>(fallingEmojisProps);
   const classes = useStyles();
 
+  useEffect(() => {
+    gsap.fromTo(
+      '.options-container',
+      { y: 400, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.5 }
+    );
+  }, []);
+
   return (
-    <Container className={classes.optionsRoot}>
+    <Container className={`${classes.optionsRoot} options-container`}>
       <EmojiInput
         defaultEmojis={fallingEmojis.emojis}
         onAdding={(emojis) =>
@@ -101,6 +110,7 @@ const Options: React.FC<Props> = ({ fallingEmojisProps, onUpdate }: Props) => {
           type='number'
           label='Size (in pixels)'
           value={fallingEmojis.size}
+          color='secondary'
           onChange={(e) =>
             setFallingEmojis((currentValue) => ({
               ...currentValue,

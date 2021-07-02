@@ -12,12 +12,12 @@ const useStyles = makeStyles(() =>
       display: 'flex !important',
       flexDirection: 'column',
       alignItems: 'center',
-      margin: '.5rem',
+      margin: '.5rem auto',
       '& > *': {
         margin: '.5rem'
       },
       '& > .MuiBox-root': {
-        color: 'white'
+        // color: 'white'
       }
     },
     optionsSwitchBox: {

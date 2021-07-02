@@ -18,7 +18,11 @@ const EmojiElement: React.FC<Props> = ({ index, element, onRemove }: Props) => {
   return (
     <Paper className={classes.emojiElementPaper}>
       <Typography>{element}</Typography>
-      <Button color='secondary' onClick={() => onRemove(index)}>
+      <Button
+        variant='outlined'
+        color='secondary'
+        onClick={() => onRemove(index)}
+      >
         Remove
       </Button>
     </Paper>

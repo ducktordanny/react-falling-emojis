@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import FallingEmojis from 'react-falling-emojis';
 
-import NavBar from './components/NavBar';
+// import NavBar from './components/NavBar';
+import Header from './components/Header/index';
 import Options from './components/Options';
 import ReactFallingEmojisProps from './interfaces/ReactFallingEmojisProps';
 // import useStyles from './hooks/useStyles';
@@ -23,20 +24,29 @@ const App = () => {
   // const classes = useStyles();
   const theme = createMuiTheme({
     palette: {
-      type: 'dark',
+      // type: 'dark',
       primary: {
-        main: '#E3C567'
+        main: '#E9B84C'
       },
       secondary: {
-        // main: '#BA1F33'
-        main: '#FF5E5B'
+        main: '#B82949'
+      },
+      text: {
+        primary: '#FFF',
+        secondary: '#9a9a9a'
       }
+    },
+    typography: {
+      fontFamily: [`'Barlow', sans-serif`].join(',')
     }
   });
 
-  // TODO: white color
+  // ! TextField value is white
+  // ! TextField 'value' of null issue...
+  // TODO: add github repo link button
+  // TODO: add notistack for notifications on copying something to the clipboard
+  // TODO: make footer
   // TODO: opportunity to copy current settings (Button name: [Copy component with current settings]?)
-  // TODO: logo idea: falling fire ball where the ball is an emoji
 
   const handleEnabling = () => {
     setFallingEnabled((currentValue) => !currentValue);
@@ -52,9 +62,9 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavBar
-        buttonName={fallingEnabled ? 'Disable falling' : 'Enable falling'}
-        onClick={handleEnabling}
+      <Header
+        buttonLabel={fallingEnabled ? 'Disable falling' : 'Enable falling'}
+        onEnable={handleEnabling}
       />
       <Options
         fallingEmojisProps={fallingEmojisProps}
