@@ -72,6 +72,17 @@ label {
   cursor: pointer;
 }
 
+.github-button {
+  align-self: center;
+  max-height: 50px;
+  color: #fff !important;
+  margin-left: 1rem !important;
+}
+
+.github-button span svg {
+  margin-right: 0.5rem;
+}
+
 .enable-button {
   align-self: flex-end;
   max-width: 150px;

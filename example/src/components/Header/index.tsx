@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import ReactFallingEmojisLogo from '../../assets/react-falling-emojis-logo.svg';
 import InstallationLabel from './InstallationLabel';
 import gsap from 'gsap';
@@ -44,13 +45,19 @@ const Header: React.FC<HeaderProps> = ({
         <div className='slogan-container'>
           <h1>Choose your emojis and make a rain with them!</h1>
           <p>
-            It can also be varied in many ways via React props. Turn it on and
-            try your owm settings below.
+            It can also be varied in many ways via React props. Enable it and
+            try your own settings below.
           </p>
         </div>
         <div className='installation-container'>
           <InstallationLabel />
-          {/* <Button>Github repo</Button> */}
+          <Button
+            className='github-button'
+            href='https://github.com/ducktordanny/react-falling-emojis'
+          >
+            <GitHubIcon />
+            Github repo
+          </Button>
         </div>
       </section>
       <Button
