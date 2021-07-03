@@ -1,0 +1,25 @@
+footer {
+  /* background: #b82949; */
+  background: #e9b84c;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: #fff;
+  z-index: 10;
+}
+
+footer > * {
+  padding: 0;
+  margin: 0;
+}
+
+footer h1 {
+  font-size: 2rem;
+  padding-bottom: 2rem;
+}
+
+footer p {
+  padding-bottom: 0.5rem;
+}

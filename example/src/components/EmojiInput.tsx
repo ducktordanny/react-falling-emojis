@@ -33,12 +33,17 @@ const EmojiInput: React.FC<Props> = ({ defaultEmojis, onAdding }: Props) => {
     <Box>
       <Box className={classes.emojiInputBox}>
         <TextField
-          label='Emoji/falling element'
+          label='Falling element'
           value={emojiElementInput}
           helperText='Emojis: win + ; or control + cmd + space'
           onChange={(e) => setEmojiElementInput(e.target.value)}
         />
-        <Button variant='contained' color='primary' onClick={handleEmojiAdding}>
+        <Button
+          variant='contained'
+          color='primary'
+          style={{ color: '#fff' }}
+          onClick={handleEmojiAdding}
+        >
           Add
         </Button>
       </Box>

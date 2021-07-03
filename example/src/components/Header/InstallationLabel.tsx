@@ -1,21 +1,29 @@
 import React from 'react';
+import { useSnackbar } from 'notistack';
 
 const InstallationLabel = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    console.log(`${text} is copied to clipboard...`);
+    const type = text.split(' ')[0] === 'npm' ? 'Npm' : 'Yarn';
+    enqueueSnackbar(`${type} installation copied.`, {
+      variant: 'success',
+      autoHideDuration: 2000
+    });
   };
 
   return (
     <div>
       <label className='comment' htmlFor='comment'>
-        # Installation:
+        # Installation (click to copy):
       </label>
       <br />
       <label
         id='npm'
         className='shell'
         htmlFor='shell'
+        title='Click to copy.'
         onClick={() => copyToClipboard('npm install react-falling-emojis')}
       >
         npm install react-falling-emojis
@@ -29,6 +37,7 @@ const InstallationLabel = () => {
         id='yarn'
         className='shell'
         htmlFor='shell'
+        title='Click to copy.'
         onClick={() => copyToClipboard('yarn add react-falling-emojis')}
       >
         yarn add react-falling-emojis

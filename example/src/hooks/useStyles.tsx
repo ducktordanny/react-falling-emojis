@@ -42,10 +42,15 @@ const useStyles = makeStyles(() =>
       margin: '.5rem 0 0 0',
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'center',
-      '& > *': {
-        margin: '.5rem'
-      }
+      alignItems: 'center'
+    },
+    emojiElementLabel: {
+      flex: '1',
+      textAlign: 'center',
+      border: '1px solid #9a9a9a',
+      borderRadius: '2.5px',
+      margin: '.25rem',
+      padding: '.25rem'
     }
   })
 );

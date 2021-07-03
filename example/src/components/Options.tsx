@@ -28,7 +28,7 @@ const Options: React.FC<Props> = ({ fallingEmojisProps, onUpdate }: Props) => {
     gsap.fromTo(
       '.options-container',
       { y: 400, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.5 }
+      { y: 0, opacity: 1, duration: 1.25 }
     );
   }, []);
 
@@ -140,6 +140,7 @@ const Options: React.FC<Props> = ({ fallingEmojisProps, onUpdate }: Props) => {
       <Button
         variant='contained'
         color='primary'
+        style={{ color: '#fff', marginBottom: '2rem' }}
         onClick={() => {
           onUpdate(fallingEmojis);
         }}

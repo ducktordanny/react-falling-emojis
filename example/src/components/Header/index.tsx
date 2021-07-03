@@ -4,7 +4,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import ReactFallingEmojisLogo from '../../assets/react-falling-emojis-logo.svg';
 import InstallationLabel from './InstallationLabel';
 import gsap from 'gsap';
-import './index.css';
+import './styles.css';
 
 interface HeaderProps {
   buttonLabel: string;

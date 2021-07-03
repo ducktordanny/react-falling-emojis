@@ -3,8 +3,9 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import FallingEmojis from 'react-falling-emojis';
 
 // import NavBar from './components/NavBar';
-import Header from './components/Header/index';
+import Header from './components/Header';
 import Options from './components/Options';
+import Footer from './components/Footer';
 import ReactFallingEmojisProps from './interfaces/ReactFallingEmojisProps';
 
 const App = () => {
@@ -40,8 +41,6 @@ const App = () => {
     }
   });
 
-  // TODO: add notistack for notifications on copying something to the clipboard
-  // TODO: make footer
   // TODO: default density could be 5
   // TODO: opportunity to copy current settings (Button name: [Copy component with current settings]?) => https://www.npmjs.com/package/react-markdown
 
@@ -67,6 +66,7 @@ const App = () => {
         fallingEmojisProps={fallingEmojisProps}
         onUpdate={(e) => handleOptionsUpdate(e)}
       />
+      <Footer />
       <FallingEmojis disable={!fallingEnabled} {...fallingEmojisProps} />
     </ThemeProvider>
   );
