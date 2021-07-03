@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({
             href='https://github.com/ducktordanny/react-falling-emojis'
           >
             <GitHubIcon />
-            Github repo
+            <span>Github repo</span>
           </Button>
         </div>
       </section>

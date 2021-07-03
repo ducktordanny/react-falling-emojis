@@ -128,6 +128,10 @@ label {
 }
 
 @media only screen and (max-width: 725px) {
+  header {
+    border-radius: 0 0 15px 15px;
+  }
+
   .slogan-container h1 {
     font-size: 1.7rem;
   }
@@ -155,5 +159,19 @@ label {
 
   .enable-button {
     margin: 0 1.25rem 1.25rem 0 !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .github-button {
+    margin-left: 0 !important;
+  }
+
+  .github-button span span {
+    display: none;
+  }
+
+  .github-button span svg {
+    margin: 0;
   }
 }

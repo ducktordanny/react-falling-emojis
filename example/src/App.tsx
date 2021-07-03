@@ -6,7 +6,6 @@ import FallingEmojis from 'react-falling-emojis';
 import Header from './components/Header/index';
 import Options from './components/Options';
 import ReactFallingEmojisProps from './interfaces/ReactFallingEmojisProps';
-// import useStyles from './hooks/useStyles';
 
 const App = () => {
   const [fallingEnabled, setFallingEnabled] = useState<boolean>(false);
@@ -43,7 +42,8 @@ const App = () => {
 
   // TODO: add notistack for notifications on copying something to the clipboard
   // TODO: make footer
-  // TODO: opportunity to copy current settings (Button name: [Copy component with current settings]?)
+  // TODO: default density could be 5
+  // TODO: opportunity to copy current settings (Button name: [Copy component with current settings]?) => https://www.npmjs.com/package/react-markdown
 
   const handleEnabling = () => {
     setFallingEnabled((currentValue) => !currentValue);
