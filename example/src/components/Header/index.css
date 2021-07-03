@@ -76,8 +76,11 @@ label {
   align-self: flex-end;
   max-width: 150px;
   margin: 0 1.875rem 1.875rem 0 !important;
-  color: #fff;
   border: 1px solid #fff !important;
+}
+
+.enable-button span {
+  color: #fff;
 }
 
 @media only screen and (max-width: 1100px) {

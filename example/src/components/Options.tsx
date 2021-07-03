@@ -77,46 +77,50 @@ const Options: React.FC<Props> = ({ fallingEmojisProps, onUpdate }: Props) => {
           type='number'
           label='Repeat'
           value={fallingEmojis.repeat}
-          onChange={(e) =>
-            setFallingEmojis((currentValue) => ({
-              ...currentValue,
-              repeat: +e.target.value
-            }))
-          }
+          onChange={(e) => {
+            const repeatValue = e.target.value || '0';
+            setFallingEmojis((currentRepeat) => ({
+              ...currentRepeat,
+              repeat: +repeatValue
+            }));
+          }}
         />
         <TextField
           type='number'
           label='Density'
           value={fallingEmojis.density}
-          onChange={(e) =>
-            setFallingEmojis((currentValue) => ({
-              ...currentValue,
-              density: +e.target.value
-            }))
-          }
+          onChange={(e) => {
+            const densityValue = e.target.value || '0';
+            setFallingEmojis((currentDensity) => ({
+              ...currentDensity,
+              density: +densityValue
+            }));
+          }}
         />
         <TextField
           type='number'
           label='Speed'
           value={fallingEmojis.speed}
-          onChange={(e) =>
-            setFallingEmojis((currentValue) => ({
-              ...currentValue,
-              speed: +e.target.value
-            }))
-          }
+          onChange={(e) => {
+            const speedValue = e.target.value || '0';
+            setFallingEmojis((currentSpeed) => ({
+              ...currentSpeed,
+              speed: +speedValue
+            }));
+          }}
         />
         <TextField
           type='number'
           label='Size (in pixels)'
           value={fallingEmojis.size}
           color='secondary'
-          onChange={(e) =>
-            setFallingEmojis((currentValue) => ({
-              ...currentValue,
-              size: +e.target.value
-            }))
-          }
+          onChange={(e) => {
+            const sizeValue = e.target.value || '0';
+            setFallingEmojis((currentSize) => ({
+              ...currentSize,
+              size: +sizeValue
+            }));
+          }}
         />
         <TextField
           type='number'

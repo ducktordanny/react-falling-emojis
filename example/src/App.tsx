@@ -32,7 +32,7 @@ const App = () => {
         main: '#B82949'
       },
       text: {
-        primary: '#FFF',
+        primary: '#333',
         secondary: '#9a9a9a'
       }
     },
@@ -41,8 +41,6 @@ const App = () => {
     }
   });
 
-  // ! TextField value is white
-  // ! TextField 'value' of null issue...
   // TODO: add github repo link button
   // TODO: add notistack for notifications on copying something to the clipboard
   // TODO: make footer
