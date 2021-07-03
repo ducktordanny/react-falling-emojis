@@ -41,7 +41,6 @@ const App = () => {
     }
   });
 
-  // TODO: add github repo link button
   // TODO: add notistack for notifications on copying something to the clipboard
   // TODO: make footer
   // TODO: opportunity to copy current settings (Button name: [Copy component with current settings]?)
