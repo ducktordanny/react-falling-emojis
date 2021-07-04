@@ -47,7 +47,7 @@ const useStyles = makeStyles(() =>
     emojiElementLabel: {
       flex: '1',
       textAlign: 'center',
-      border: '1px solid #9a9a9a',
+      border: '1px dotted #9a9a9a',
       borderRadius: '2.5px',
       margin: '.25rem',
       padding: '.25rem'

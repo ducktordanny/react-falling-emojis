@@ -5,6 +5,7 @@ import FallingEmojis from 'react-falling-emojis';
 // import NavBar from './components/NavBar';
 import Header from './components/Header';
 import Options from './components/Options';
+import ComponentView from './components/ComponentView';
 import Footer from './components/Footer';
 import ReactFallingEmojisProps from './interfaces/ReactFallingEmojisProps';
 
@@ -41,8 +42,9 @@ const App = () => {
     }
   });
 
-  // TODO: default density could be 5
+  // TODO: Demo site route by versions
   // TODO: opportunity to copy current settings (Button name: [Copy component with current settings]?) => https://www.npmjs.com/package/react-markdown
+  // TODO: the markdown part and the options section could be in two column and if the width is not enough then wrap it...
 
   const handleEnabling = () => {
     setFallingEnabled((currentValue) => !currentValue);
@@ -66,6 +68,7 @@ const App = () => {
         fallingEmojisProps={fallingEmojisProps}
         onUpdate={(e) => handleOptionsUpdate(e)}
       />
+      <ComponentView fallingEmojisProps={fallingEmojisProps} />
       <Footer />
       <FallingEmojis disable={!fallingEnabled} {...fallingEmojisProps} />
     </ThemeProvider>
