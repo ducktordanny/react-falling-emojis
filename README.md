@@ -1,4 +1,4 @@
-# ![ReactFallingEmojisLogo](./example/src/assets/react-falling-emojis-logo-black.svg)
+# ![ReactFallingEmojisLogo](./README-title-logo.svg)
 
 > Choose your emojis and make a rain with them.
 
@@ -69,11 +69,13 @@ export default App;
 
 If you notice any problems or you have any tips what could be included check out the github repo of react-falling-animation. (https://github.com/ducktorD/react-falling-emojis)
 
-## License
-
-MIT © [DucktorDanny](https://github.com/DucktorDanny)
-
 ## Made with:
 
 - GSAP (https://greensock.com/)
 - create-react-library with typescript (https://www.npmjs.com/package/create-react-library)
+- Font named Barlow by Jeremy Tribby. Used in demo site and logo.
+- Icon designer: Sean Maldjian
+
+## License
+
+MIT © [DucktorDanny](https://github.com/DucktorDanny)
