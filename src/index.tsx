@@ -11,7 +11,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
   emojis,
   speed = 10,
   disable = false,
-  density = 1,
+  density = 5,
   shake = false,
   size = 30,
   reverse = false,
@@ -38,8 +38,9 @@ const FallingEmojis: React.FC<RainSettings> = ({
     });
   }, [opacity]);
 
+  // ! on opacity changing the emojis are appearing for a second
+
   /**
-   * TODO: default value of density could be 5
    * TODO: once I already tried to use stagger instead of the current solution. Should I give another chance to it? (might be more optimal...)
    * => Do we really need timelines? (https://greensock.com/forums/topic/11908-particle-system/) => One main timeline and it would get tweens from children
    */
