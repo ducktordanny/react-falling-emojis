@@ -42,6 +42,7 @@ const Options: React.FC<Props> = ({ fallingEmojisProps, onUpdate }: Props) => {
       />
       <Box className={classes.optionsSwitchBox}>
         <FormControlLabel
+          color='primary'
           control={
             <Switch
               color='primary'
@@ -57,6 +58,7 @@ const Options: React.FC<Props> = ({ fallingEmojisProps, onUpdate }: Props) => {
           value={fallingEmojis.shake}
         />
         <FormControlLabel
+          color='textSecondary'
           control={
             <Switch
               color='primary'

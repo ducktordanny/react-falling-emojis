@@ -42,9 +42,13 @@ const App = () => {
     }
   });
 
-  // TODO: Demo site route by versions
-  // TODO: opportunity to copy current settings (Button name: [Copy component with current settings]?) => https://www.npmjs.com/package/react-markdown
+  // TODO: Options and CopmonentView should be next to each other
+  // TODO: clean-up in Opctions component
+  // TODO: CopmonentView still need animation
+  // TODO: style update (clean-up)
   // TODO: the markdown part and the options section could be in two column and if the width is not enough then wrap it...
+  // TODO: Demo site route by versions
+  // TODO: update to newer react version
 
   const handleEnabling = () => {
     setFallingEnabled((currentValue) => !currentValue);
@@ -64,11 +68,13 @@ const App = () => {
         buttonLabel={fallingEnabled ? 'Disable falling' : 'Enable falling'}
         onEnable={handleEnabling}
       />
-      <Options
-        fallingEmojisProps={fallingEmojisProps}
-        onUpdate={(e) => handleOptionsUpdate(e)}
-      />
-      <ComponentView fallingEmojisProps={fallingEmojisProps} />
+      <main style={{ display: 'flex', alignItems: 'center' }}>
+        <Options
+          fallingEmojisProps={fallingEmojisProps}
+          onUpdate={(e) => handleOptionsUpdate(e)}
+        />
+        <ComponentView fallingEmojisProps={fallingEmojisProps} />
+      </main>
       <Footer />
       <FallingEmojis disable={!fallingEnabled} {...fallingEmojisProps} />
     </ThemeProvider>

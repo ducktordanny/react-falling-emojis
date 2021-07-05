@@ -5,6 +5,7 @@ import defaultFallingProps from '../defaultFallingProps';
 import ReactFallingEmojisProps from '../interfaces/ReactFallingEmojisProps';
 import Button from '@material-ui/core/Button';
 import { useSnackbar } from 'notistack';
+import { Typography } from '@material-ui/core';
 
 interface ComponentViewProps {
   fallingEmojisProps: ReactFallingEmojisProps;
@@ -59,6 +60,9 @@ const App = () => (
 
   return (
     <Container>
+      <Typography variant='h4' color='textSecondary'>
+        Component preview:
+      </Typography>
       <SyntaxHighlighter language='jsx' showLineNumbers>
         {getFallingEmojisSample(fallingEmojisProps)}
       </SyntaxHighlighter>

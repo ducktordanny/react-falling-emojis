@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import { useSnackbar } from 'notistack';
 
 import EmojiElement from './EmojiElement';
 import useStyles from '../hooks/useStyles';
@@ -15,6 +16,7 @@ interface Props {
 const EmojiInput: React.FC<Props> = ({ defaultEmojis, onAdding }: Props) => {
   const [emojiElementInput, setEmojiElementInput] = useState<string>('');
   const [emojis, setEmojis] = useState<string[]>(defaultEmojis);
+  const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
 
   const handleEmojiAdding = () => {
@@ -25,6 +27,13 @@ const EmojiInput: React.FC<Props> = ({ defaultEmojis, onAdding }: Props) => {
   };
 
   const handleRemove = (index: number) => {
+    if (emojis.length === 1) {
+      enqueueSnackbar('You need at least one falling element.', {
+        variant: 'error',
+        autoHideDuration: 2000
+      });
+      return;
+    }
     onAdding(emojis.filter((_, x) => index !== x));
     setEmojis((currentValue) => currentValue.filter((_, x) => index !== x));
   };
@@ -47,18 +56,14 @@ const EmojiInput: React.FC<Props> = ({ defaultEmojis, onAdding }: Props) => {
           Add
         </Button>
       </Box>
-      {emojis.length > 0 ? (
-        emojis.map((emoji, index) => (
-          <EmojiElement
-            key={`emoji-element-${index}`}
-            index={index}
-            element={emoji}
-            onRemove={handleRemove}
-          />
-        ))
-      ) : (
-        <label htmlFor='empty-array'>There are no emjis added...</label>
-      )}
+      {emojis.map((emoji, index) => (
+        <EmojiElement
+          key={`emoji-element-${index}`}
+          index={index}
+          element={emoji}
+          onRemove={handleRemove}
+        />
+      ))}
     </Box>
   );
 };
