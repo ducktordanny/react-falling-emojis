@@ -1,11 +1,15 @@
 import React from 'react';
-import Container from '@material-ui/core/Container';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import defaultFallingProps from '../defaultFallingProps';
-import ReactFallingEmojisProps from '../interfaces/ReactFallingEmojisProps';
-import Button from '@material-ui/core/Button';
 import { useSnackbar } from 'notistack';
-import { Typography } from '@material-ui/core';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+
+import {
+  getFallingComponent,
+  getFullSample
+} from '../functions/componentViewValues';
+import ReactFallingEmojisProps from '../interfaces/ReactFallingEmojisProps';
 
 interface ComponentViewProps {
   fallingEmojisProps: ReactFallingEmojisProps;
@@ -16,42 +20,16 @@ const ComponentView: React.FC<ComponentViewProps> = ({
 }: ComponentViewProps) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const getFallingEmojisSample = ({
-    emojis,
-    shake,
-    reverse,
-    repeat,
-    density,
-    speed,
-    size,
-    opacity
-  }: ReactFallingEmojisProps) =>
-    `import React from 'react';
-import FallingEmojis from 'react-falling-emojis';
+  const handleCopyAll = () => {
+    navigator.clipboard.writeText(getFullSample(fallingEmojisProps));
+    enqueueSnackbar('Preview copied.', {
+      variant: 'success',
+      autoHideDuration: 2000
+    });
+  };
 
-const App = () => (
-  <FallingEmojis
-    emojis={['${emojis.join(`', '`)}']}${shake === true ? '\n    shake' : ''}${
-      reverse === true ? '\n    reverse' : ''
-    }${
-      repeat !== defaultFallingProps.repeat ? `\n    repeat={${repeat}}` : ''
-    }${
-      density !== defaultFallingProps.density
-        ? `\n    density={${density}}`
-        : ''
-    }${speed !== defaultFallingProps.speed ? `\n    speed={${speed}}` : ''}${
-      size !== defaultFallingProps.size ? `\n    size={${size}}` : ''
-    }${
-      opacity !== defaultFallingProps.opacity
-        ? `\n    opacity={${opacity}}`
-        : ''
-    }
-  />
-);
-`;
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(getFallingEmojisSample(fallingEmojisProps));
+  const handleCopyFallingComponent = () => {
+    navigator.clipboard.writeText(getFallingComponent(fallingEmojisProps));
     enqueueSnackbar('Component copied.', {
       variant: 'success',
       autoHideDuration: 2000
@@ -59,20 +37,28 @@ const App = () => (
   };
 
   return (
-    <Container>
+    <Container id='component-view-container'>
       <Typography variant='h4' color='textSecondary'>
         Component preview:
       </Typography>
       <SyntaxHighlighter language='jsx' showLineNumbers>
-        {getFallingEmojisSample(fallingEmojisProps)}
+        {getFullSample(fallingEmojisProps)}
       </SyntaxHighlighter>
       <Button
         variant='contained'
         color='primary'
-        style={{ color: '#fff', marginBottom: '2rem' }}
-        onClick={handleCopy}
+        style={{ color: '#fff', marginRight: '.5rem' }}
+        onClick={handleCopyAll}
       >
-        Copy
+        Copy All
+      </Button>
+      <Button
+        variant='contained'
+        color='primary'
+        style={{ color: '#fff' }}
+        onClick={handleCopyFallingComponent}
+      >
+        Copy Component
       </Button>
     </Container>
   );

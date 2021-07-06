@@ -9,8 +9,4 @@ const defaultFallingProps = {
   opacity: 1
 };
 
-const { disable: something } = defaultFallingProps;
-
-console.log(something);
-
 export default defaultFallingProps;

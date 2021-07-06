@@ -1,17 +1,16 @@
-import React, { useEffect } from 'react';
-import gsap from 'gsap';
+import React from 'react';
+import useSlideUpAnimation from '../../hooks/useSlideUpAnimation';
 import './styles.css';
 
 interface Props {}
 
 const Footer: React.FC<Props> = () => {
-  useEffect(() => {
-    gsap.fromTo(
-      'footer',
-      { y: 400, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.25 }
-    );
-  }, []);
+  useSlideUpAnimation({
+    targets: 'footer',
+    from: 400,
+    to: 0,
+    duration: 1.25
+  });
 
   return (
     <footer>

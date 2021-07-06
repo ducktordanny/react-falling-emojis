@@ -7,6 +7,10 @@ import RainSettings from './interfaces/RainSettings'; // eslint-disable-line
 import styles from './styles.module.css';
 import 'react-falling-emojis/dist/index.css';
 
+/**
+ * - [Demo site]()
+ * - [Github repo](https://github.com/ducktordanny/react-falling-emojis)
+ */
 const FallingEmojis: React.FC<RainSettings> = ({
   emojis,
   speed = 10,
@@ -41,6 +45,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
   // ! on opacity changing the emojis are appearing for a second
 
   /**
+   * TODO: add doc comments
    * TODO: once I already tried to use stagger instead of the current solution. Should I give another chance to it? (might be more optimal...)
    * => Do we really need timelines? (https://greensock.com/forums/topic/11908-particle-system/) => One main timeline and it would get tweens from children
    */

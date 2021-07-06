@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import React, { useState } from 'react';
+import { ThemeProvider } from '@material-ui/core';
 import FallingEmojis from 'react-falling-emojis';
 
 // import NavBar from './components/NavBar';
@@ -7,7 +7,10 @@ import Header from './components/Header';
 import Options from './components/Options';
 import ComponentView from './components/ComponentView';
 import Footer from './components/Footer';
+import useTheme from './hooks/useTheme';
 import ReactFallingEmojisProps from './interfaces/ReactFallingEmojisProps';
+import useSlideUpAnimation from './hooks/useSlideUpAnimation';
+import useStyles from './hooks/useStyles';
 
 const App = () => {
   const [fallingEnabled, setFallingEnabled] = useState<boolean>(false);
@@ -22,27 +25,17 @@ const App = () => {
       size: 30,
       opacity: 1
     });
-  // const classes = useStyles();
-  const theme = createMuiTheme({
-    palette: {
-      // type: 'dark',
-      primary: {
-        main: '#E9B84C'
-      },
-      secondary: {
-        main: '#B82949'
-      },
-      text: {
-        primary: '#333',
-        secondary: '#9a9a9a'
-      }
-    },
-    typography: {
-      fontFamily: [`'Barlow', sans-serif`].join(',')
-    }
+  const classes = useStyles();
+  const theme = useTheme();
+
+  useSlideUpAnimation({
+    targets: `.${classes.main}`,
+    from: 400,
+    to: 0,
+    duration: 1.25
   });
 
-  // TODO: Options and CopmonentView should be next to each other
+  // // TODO: Options and CopmonentView should be next to each other -> need to improve
   // TODO: clean-up in Opctions component
   // TODO: CopmonentView still need animation
   // TODO: style update (clean-up)
@@ -50,28 +43,16 @@ const App = () => {
   // TODO: Demo site route by versions
   // TODO: update to newer react version
 
-  const handleEnabling = () => {
-    setFallingEnabled((currentValue) => !currentValue);
-  };
-
-  const handleOptionsUpdate = (e: ReactFallingEmojisProps) => {
-    setFallingEmojisProps(e);
-  };
-
-  useEffect(() => {
-    console.log(fallingEmojisProps);
-  }, [fallingEmojisProps]);
-
   return (
     <ThemeProvider theme={theme}>
       <Header
         buttonLabel={fallingEnabled ? 'Disable falling' : 'Enable falling'}
-        onEnable={handleEnabling}
+        onEnable={() => setFallingEnabled((currentValue) => !currentValue)}
       />
-      <main style={{ display: 'flex', alignItems: 'center' }}>
+      <main className={classes.main}>
         <Options
           fallingEmojisProps={fallingEmojisProps}
-          onUpdate={(e) => handleOptionsUpdate(e)}
+          onUpdate={(e) => setFallingEmojisProps(e)}
         />
         <ComponentView fallingEmojisProps={fallingEmojisProps} />
       </main>

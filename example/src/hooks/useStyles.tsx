@@ -8,27 +8,45 @@ const useStyles = makeStyles(() =>
     navBarTitle: {
       flexGrow: 1
     },
+    main: {
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      marginBottom: '2rem',
+      '& .MuiContainer-root': {
+        paddingTop: '2rem'
+      },
+      '& #options-container': {
+        minWidth: '200px',
+        maxWidth: '500px'
+      },
+      '& #component-view-container': {
+        minWidth: '300px',
+        maxWidth: '800px'
+      }
+    },
     optionsRoot: {
       display: 'flex !important',
       flexDirection: 'column',
       alignItems: 'center',
-      margin: '.5rem auto',
+      margin: '0 auto',
       '& > *': {
         margin: '.5rem'
-      },
-      '& > .MuiBox-root': {
-        // color: 'white'
       }
     },
     optionsSwitchBox: {
       display: 'flex',
-      flexDirection: 'column'
+      flexDirection: 'row'
     },
     optionsTextFields: {
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
       '& > .MuiFormControl-root.MuiTextField-root': {
-        margin: '.5rem'
+        margin: '.5rem',
+        width: '100px'
       }
     },
     emojiInputBox: {
