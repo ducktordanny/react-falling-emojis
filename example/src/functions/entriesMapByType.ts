@@ -8,25 +8,11 @@
  *
  * E.g.:
  * ```ts
- * const person = {
- *   firstName: 'Peter',
- *   secondName: 'Gardener',
- *   age: 21,
- *   birthYear: 1998
- * };
- *
- * const result = entriesMapByType(person, 'number', ([key, value]) => ({
+ * const result = entriesMapByType(myObject, 'number', ([key, value]) => ({
  *   key,
  *   value
  * }));
- *
- * console.log(result);
- *
- * // (2) [{…}, {…}]
- * // 0: {key: "age", value: 21}
- * // 1: {key: "birthYear", value: 1998}
- * // length: 2
- * // __proto__: Array(0)
+ * // result: an array with objects where objects.value is number
  * ```
  */
 const entriesMapByType = (

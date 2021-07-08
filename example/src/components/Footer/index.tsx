@@ -2,9 +2,11 @@ import React from 'react';
 import useSlideUpAnimation from '../../hooks/useSlideUpAnimation';
 import './styles.css';
 
-interface Props {}
+interface FooterProps {
+  version?: string;
+}
 
-const Footer: React.FC<Props> = () => {
+const Footer: React.FC<FooterProps> = ({ version }) => {
   useSlideUpAnimation({
     targets: 'footer',
     from: 400,
@@ -14,7 +16,9 @@ const Footer: React.FC<Props> = () => {
 
   return (
     <footer>
-      <h1>ReactFallingEmojis</h1>
+      <h1>
+        ReactFallingEmojis <label>{version!}</label>
+      </h1>
       <p>
         Made by <b>DucktorDanny</b>
       </p>

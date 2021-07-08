@@ -35,13 +35,8 @@ const App = () => {
     duration: 1.25
   });
 
-  // // TODO: Options and CopmonentView should be next to each other -> need to improve
-  // TODO: clean-up in Opctions component
-  // TODO: CopmonentView still need animation
   // TODO: style update (clean-up)
-  // TODO: the markdown part and the options section could be in two column and if the width is not enough then wrap it...
-  // TODO: Demo site route by versions
-  // TODO: update to newer react version
+  // TODO: density input should be smaller than 1
 
   return (
     <ThemeProvider theme={theme}>
@@ -56,7 +51,7 @@ const App = () => {
         />
         <ComponentView fallingEmojisProps={fallingEmojisProps} />
       </main>
-      <Footer />
+      <Footer version='v0.0.1' />
       <FallingEmojis disable={!fallingEnabled} {...fallingEmojisProps} />
     </ThemeProvider>
   );
