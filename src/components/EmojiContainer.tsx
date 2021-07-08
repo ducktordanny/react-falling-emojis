@@ -10,31 +10,20 @@ import styles from '../styles.module.css';
 const EmojiContainer: React.FC<ContainerProps> = ({
   id,
   emoji,
-  speed,
-  disable,
-  shake,
-  size,
-  reverse,
-  repeat,
-  opacity
+  fallingProps,
+  disableProps,
+  shake
 }: ContainerProps) => {
   const mainTimeline = useFallingAnimation({
-    id,
-    speed,
-    size,
-    reverse,
-    repeat
+    id: `#${id}`,
+    ...fallingProps
   });
   const shakeTimeline = useShakingAnimation({ id, shake });
 
-  /**
-   * it's listening for disable's changing and it makes a nice animation and also pause timelines if it's true
-   */
   useSmoothDisabling({
     timelines: shake ? [mainTimeline, shakeTimeline] : [mainTimeline],
     element: `.${styles['emoji-container']}`,
-    disable,
-    opacity
+    ...disableProps
   });
 
   return (

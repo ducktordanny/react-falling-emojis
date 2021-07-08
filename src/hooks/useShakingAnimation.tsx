@@ -3,6 +3,9 @@ import gsap from 'gsap';
 
 import ShakingAnimationProps from '../interfaces/ShakingAnimationProps'; // eslint-disable-line
 
+/**
+ * If it's active then it makes a small shaking on elements by id...
+ */
 const useShakingAnimation = ({ id, shake }: ShakingAnimationProps) => {
   const timeline = useMemo(
     () =>

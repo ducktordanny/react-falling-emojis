@@ -3,6 +3,9 @@ import gsap from 'gsap';
 
 import FallingAnimationProps from '../interfaces/FallingAnimationProps'; // eslint-disable-line
 
+/**
+ * Make an element falling from top to bottom and it can be varied by props
+ */
 const useFallingAnimation = ({
   id,
   reverse,
@@ -23,8 +26,10 @@ const useFallingAnimation = ({
     []
   );
 
-  // this recursive function behaves like the timeline would be repeated, but
-  // also sensitive for window resizing and other changes...
+  /**
+   * This recursive function behaves like the timeline would be repeated, but
+   * also sensitive for window resizing and other changes...
+   */
   const initFallingAnimation = () => {
     const getRandomX = gsap.utils.random(0, window.innerWidth, true);
     const top = -(sizeRef.current * 2);
@@ -32,7 +37,7 @@ const useFallingAnimation = ({
 
     timeline
       .fromTo(
-        `#${id}`,
+        id,
         {
           y: reverseRef.current ? bottom : top,
           x: getRandomX,
@@ -63,15 +68,9 @@ const useFallingAnimation = ({
 
   useEffect(() => {
     initFallingAnimation();
-
-    // clean-up
     return () => {
-      timeline.clear();
+      timeline.clear(); // clean-up
     };
-  }, []);
-
-  useEffect(() => {
-    // do something
   }, []);
 
   /**
@@ -84,7 +83,6 @@ const useFallingAnimation = ({
     initFallingAnimation();
   }, [reverse]);
 
-  // ! we need to test this...
   useEffect(() => {
     speedRef.current = speed;
     timeline.clear();

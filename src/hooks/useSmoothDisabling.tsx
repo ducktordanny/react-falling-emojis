@@ -3,6 +3,9 @@ import gsap from 'gsap';
 
 import SmoothDisablingProps from '../interfaces/SmoothDisablingProps'; // eslint-disable-line
 
+/**
+ * It's listening for disable's changing and it makes a nice animation and also pause timelines if it's true
+ */
 const useSmoothDisabling = ({
   timelines,
   element,

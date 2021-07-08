@@ -1,11 +1,15 @@
 export default interface ContainerProps {
   id: string;
   emoji: string;
-  size: number;
-  speed: number;
-  disable: boolean;
+  fallingProps: {
+    speed: number;
+    size: number;
+    reverse: boolean;
+    repeat: number;
+  };
+  disableProps: {
+    disable: boolean;
+    opacity: number;
+  };
   shake: boolean;
-  reverse: boolean;
-  repeat: number;
-  opacity: number;
 }
