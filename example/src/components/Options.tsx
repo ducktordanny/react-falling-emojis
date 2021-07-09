@@ -22,6 +22,8 @@ const Options: React.FC<OptionsProps> = ({
 
   const changeFallingEmojisProperty = (value: number, property: string) => {
     if (property === 'opacity' && (value > 1 || value < 0)) return;
+    if (property === 'density' && value < 1) return;
+
     if (typeof fallingEmojis[property] === 'number')
       setFallingEmojis((currentValue) => ({
         ...currentValue,
@@ -35,7 +37,12 @@ const Options: React.FC<OptionsProps> = ({
         key={`text-field-element-${index}`}
         type='number'
         InputProps={{
-          inputProps: key === 'opacity' ? { min: 0, max: 1, step: 0.1 } : {}
+          inputProps:
+            key === 'opacity'
+              ? { min: 0, max: 1, step: 0.1 }
+              : key === 'density'
+              ? { min: 1 }
+              : {}
         }}
         label={key.charAt(0).toUpperCase() + key.slice(1)}
         value={value}

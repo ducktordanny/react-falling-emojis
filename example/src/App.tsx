@@ -36,7 +36,6 @@ const App = () => {
   });
 
   // TODO: style update (clean-up)
-  // TODO: density input should be smaller than 1
 
   return (
     <ThemeProvider theme={theme}>
