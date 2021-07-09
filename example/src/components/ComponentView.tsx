@@ -38,7 +38,7 @@ const ComponentView: React.FC<ComponentViewProps> = ({
 
   return (
     <Container id='component-view-container'>
-      <Typography variant='h4' color='textSecondary'>
+      <Typography variant='h5' color='textSecondary'>
         Component preview:
       </Typography>
       <SyntaxHighlighter language='jsx' showLineNumbers>

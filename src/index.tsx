@@ -28,7 +28,7 @@ const FallingEmojis: React.FC<RainSettings> = ({
 
   /**
    * TODO: add doc comments
-   * TODO: too big height change can be really messy
+   * TODO: too big height change can be really messy (restart the timelines in this situation)
    */
 
   /**
