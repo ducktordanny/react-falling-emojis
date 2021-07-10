@@ -175,3 +175,9 @@ label {
     margin: 0;
   }
 }
+
+@media (max-height: 600px) {
+  header {
+    min-height: 480px;
+  }
+}
