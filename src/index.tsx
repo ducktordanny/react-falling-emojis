@@ -27,7 +27,6 @@ const FallingEmojis: React.FC<RainSettings> = ({
   useOpacityHandle(opacity, disable, `.${styles['emoji-container']}`);
 
   /**
-   * TODO: too big height change can be really messy (restart the timelines in this situation)
    * TODO: add doc comments
    */
 
