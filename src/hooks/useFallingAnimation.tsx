@@ -2,6 +2,7 @@ import { useState, useRef, useMemo, useEffect } from 'react';
 import gsap from 'gsap';
 
 import FallingAnimationProps from '../interfaces/FallingAnimationProps'; // eslint-disable-line
+import useWindowSize from './useWindowSize';
 
 /**
  * Make an element falling from top to bottom and it can be varied by props
@@ -14,6 +15,7 @@ const useFallingAnimation = ({
   repeat
 }: FallingAnimationProps) => {
   const [repeatCounter, setRepeatCounter] = useState<number>(0);
+  const [height] = useWindowSize();
   const reverseRef = useRef(reverse);
   const sizeRef = useRef(size);
   const speedRef = useRef(speed);
@@ -31,7 +33,10 @@ const useFallingAnimation = ({
    * also sensitive for window resizing and other changes...
    */
   const initFallingAnimation = () => {
-    const getRandomX = gsap.utils.random(0, window.innerWidth, true);
+    const fixedValues = {
+      x: gsap.utils.random(0, window.innerWidth, true),
+      repeatRefresh: true
+    };
     const top = -(sizeRef.current * 2);
     const bottom = window.innerHeight + sizeRef.current * 2;
 
@@ -40,18 +45,15 @@ const useFallingAnimation = ({
         id,
         {
           y: reverseRef.current ? bottom : top,
-          x: getRandomX,
-          repeatRefresh: true
+          ...fixedValues
         },
         {
           y: reverseRef.current ? top : bottom,
-          x: getRandomX,
-          repeatRefresh: true,
+          ...fixedValues,
           delay: gsap.utils.random(0, speedRef.current, true),
           duration: speedRef.current,
           ease: 'none',
           onStart: () => {
-            // timeline.clear();
             initFallingAnimation();
           },
           onComplete: () => {
@@ -66,27 +68,32 @@ const useFallingAnimation = ({
       .play();
   };
 
+  /** Restart the animation with new params... */
+  const restartWithClear = () => {
+    timeline.clear();
+    initFallingAnimation();
+  };
+
   useEffect(() => {
     initFallingAnimation();
     return () => {
-      timeline.clear(); // clean-up
+      timeline.clear();
     };
   }, []);
 
-  /**
-   * Update references on change
-   */
+  useEffect(() => {
+    restartWithClear();
+  }, [height]);
+
+  /** Update references on change */
   useEffect(() => {
     reverseRef.current = reverse;
-    // restart the animation with new reverse param...
-    timeline.clear();
-    initFallingAnimation();
+    restartWithClear();
   }, [reverse]);
 
   useEffect(() => {
     speedRef.current = speed;
-    timeline.clear();
-    initFallingAnimation();
+    restartWithClear();
   }, [speed]);
 
   useEffect(() => {
@@ -94,9 +101,7 @@ const useFallingAnimation = ({
   }, [size]);
 
   useEffect(() => {
-    if (repeat !== -1 && repeat === repeatCounter) {
-      timeline.clear();
-    }
+    if (repeat !== -1 && repeat === repeatCounter) timeline.clear();
   }, [repeatCounter, repeat]);
 
   return timeline;

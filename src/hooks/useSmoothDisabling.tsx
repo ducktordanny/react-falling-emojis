@@ -20,7 +20,7 @@ const useSmoothDisabling = ({
           opacity: 0,
           ease: 'none',
           paused: true,
-          duration: 2
+          duration: 1.25
         })
         .play()
         .then(() => {
@@ -41,7 +41,7 @@ const useSmoothDisabling = ({
           opacity,
           ease: 'none',
           paused: true,
-          duration: 2,
+          duration: 1.25,
           onUpdate: () => {
             timelines.forEach((tl) => {
               if (tl.paused()) {
